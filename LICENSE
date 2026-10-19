@@ -1,0 +1,13 @@
+Copyright (c) 2026 CWAI Development. All rights reserved.
+
+Eduba's code, text, audio recordings and design are shared here so the app
+can run at https://eduba.conversations-with-ai.com, and so anyone curious can
+see how it was built. You're welcome to read the code and learn from it.
+
+Please don't republish Eduba, or a modified copy of it, as your own app or
+website. If you'd like to use part of it for something, just ask:
+cwai.eduba@gmail.com
+
+Third-party material in this repository keeps its own terms:
+- Fonts in fonts/: SIL Open Font License 1.1 (see the OFL-*.txt files).
+- Photographs in img/: The Metropolitan Museum of Art, Open Access (CC0).
