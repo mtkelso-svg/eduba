@@ -1,0 +1,1413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Eduba · Learn Sumerian cuneiform</title>
+<meta name="description" content="Learn to read Sumerian cuneiform: signs, readings and words, with recorded pronunciations. Free, no ads.">
+<meta name="theme-color" content="#142a66">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="fonts/noto-sans-cuneiform-cuneiform-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: a single reading column under a lapis masthead; three tabs (Phrasebook, Signs, Write); cuneiform always set large. */
+:root {
+  --bg: #eef0f4;          /* pale stone with a lapis bias */
+  --surface: #ffffff;
+  --ink: #16213f;         /* lapis ink */
+  --muted: #5a6380;
+  --line: #d3d8e4;
+  --lapis: #1f3a8a;
+  --lapis-deep: #142a66;
+  --gold: #a87a12;        /* gold leaf, darkened for contrast on light */
+  --gold-soft: #f3e7c6;
+  --ok: #2f6b3a;
+  --ok-soft: #e1efe3;
+  --warn: #8a5a00;
+  --warn-soft: #f6ead2;
+  --bad: #a3302a;
+  --on-lapis: #f4f1e6;
+  --f-display: "Marcellus", "Trajan Pro", Georgia, serif;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-translit: "Gentium Book Plus", "Gentium Plus", "Charis SIL", "Noto Serif", Georgia, serif;
+  --f-cun: "Noto Sans Cuneiform", "Segoe UI Historic", "Santakku", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1428; --surface: #151f3b; --ink: #e8eaf2; --muted: #9aa3bf; --line: #2a3658;
+    --lapis: #8ea8f0; --lapis-deep: #0a1230; --gold: #e2b84a; --gold-soft: #3a3019;
+    --ok: #8fd19c; --ok-soft: #1c3324; --warn: #e8c071; --warn-soft: #3a2f17; --bad: #f08a80;
+    --on-lapis: #f4f1e6; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1428; --surface: #151f3b; --ink: #e8eaf2; --muted: #9aa3bf; --line: #2a3658;
+  --lapis: #8ea8f0; --lapis-deep: #0a1230; --gold: #e2b84a; --gold-soft: #3a3019;
+  --ok: #8fd19c; --ok-soft: #1c3324; --warn: #e8c071; --warn-soft: #3a2f17; --bad: #f08a80;
+  --on-lapis: #f4f1e6; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; }
+.cun { font-family: var(--f-cun); line-height: 1.25; word-break: break-all; }
+.tl { font-family: var(--f-translit); }
+
+header.mast { background: var(--lapis-deep); color: var(--on-lapis); padding: 28px 16px 0; }
+.wrap { max-width: 920px; margin: 0 auto; }
+/* Wordmark: cuneiform and "Eduba" side by side, subtitle across both, three stylus wedges below */
+.brand { display: flex; flex-direction: column; align-items: center; gap: 14px; width: max-content; max-width: 100%; margin: 0 auto; }
+.brandline { display: flex; align-items: center; justify-content: center; gap: 48px; }
+.brand .glyph { font-family: var(--f-cun); font-size: 50px; line-height: 1; color: #e2b84a; }
+/* "Eduba" has no descenders, so it is lowered a little to sit optically centered against the cuneiform. */
+.brand h1 { font-family: var(--f-display); font-weight: 400; font-size: 52px; letter-spacing: .06em; margin: 0; line-height: 1; position: relative; top: .135em; }
+.brand p { margin: 0; opacity: .85; font-size: 16px; text-align: center; }
+.wedges { display: flex; gap: 8px; padding-top: 2px; }
+.wedges svg { width: 40px; height: 18px; fill: #e2b84a; }
+nav.tabs { display: flex; gap: 4px; margin-top: 24px; overflow-x: auto; }
+nav.tabs button {
+  font: inherit; font-size: 15px; letter-spacing: .06em; text-transform: uppercase;
+  background: transparent; color: var(--on-lapis); opacity: .75; border: 0; padding: 12px 18px;
+  border-radius: 8px 8px 0 0; cursor: pointer; white-space: nowrap;
+}
+nav.tabs button[aria-selected="true"] { background: var(--bg); color: var(--ink); opacity: 1; }
+nav.tabs button:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #e2b84a; outline-offset: 2px; }
+
+main { padding: 24px 16px 64px; }
+.note { font-size: 14px; color: var(--muted); border-left: 3px solid var(--gold); padding: 4px 0 4px 12px; max-width: 70ch; margin: 0 0 24px; }
+h2 { font-family: var(--f-display); font-weight: 400; font-size: 26px; margin: 0 0 4px; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0 0 20px; max-width: 62ch; }
+
+/* Phrasebook */
+.phrases { display: grid; gap: 18px; }
+.phrase { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 10px; min-width: 0; }
+.phrase .cun { font-size: clamp(44px, 9vw, 72px); color: var(--ink); }
+.phrase .tl { font-size: 22px; color: var(--lapis); }
+.phrase .en { font-size: 18px; font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; }
+.chip.att { background: var(--ok-soft); color: var(--ok); }
+.chip.built { background: var(--warn-soft); color: var(--warn); }
+.chip.per { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.gloss { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
+.gloss span b { font-family: var(--f-translit); font-weight: 400; color: var(--ink); font-size: 16px; }
+.phrase .comment { font-size: 15px; color: var(--muted); max-width: 66ch; margin: 0; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { font: inherit; font-size: 14px; border-radius: 8px; padding: 8px 14px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.btn.primary { background: var(--lapis); border-color: var(--lapis); color: var(--surface); font-weight: 700; }
+.btn:hover { border-color: var(--lapis); }
+
+/* Signs */
+.search { width: 100%; max-width: 420px; font: inherit; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); margin-bottom: 20px; }
+.signs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.tier + .tier { margin-top: 32px; }
+.tierhead { display: flex; align-items: center; gap: 14px; padding-bottom: 10px; margin-bottom: 14px; border-bottom: 2px solid var(--gold); }
+.tierhead .cun { font-size: 40px; line-height: 1; color: var(--gold); word-break: normal; }
+.tierhead h3 { font-family: var(--f-display); font-weight: 400; font-size: 24px; margin: 0; }
+.tierhead h3 .tl { font-size: 18px; color: var(--lapis); margin-left: 4px; }
+.tierhead p { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
+.sign { container-type: inline-size; }
+.name .codes { display: block; margin-top: 2px; }
+.sign.god .cun { font-size: min(84px, calc(72cqi / var(--n, 1))); white-space: nowrap; overflow-wrap: anywhere; }
+.sign > * { min-width: 0; max-width: 100%; }
+.sign { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.sign .cun { font-size: 84px; line-height: 1.1; text-align: center; padding: 8px 0 10px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.sign .reads { font-family: var(--f-translit); font-size: 22px; color: var(--lapis); }
+.sign .mean { font-weight: 700; }
+.sign .name { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.filters { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-bottom: 20px; }
+.filters .search { margin: 0; flex: 1 1 260px; }
+.lvls { display: flex; gap: 6px; flex-wrap: wrap; }
+.lv { display: inline-flex; gap: 2px; margin-right: 6px; vertical-align: middle; }
+.lv i { width: 6px; height: 10px; border-radius: 2px; background: var(--line); }
+.lv1 i:nth-child(1), .lv2 i:nth-child(-n+2), .lv3 i { background: var(--gold); }
+
+/* Learn */
+.levels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+.score { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+.score .pts { font-family: var(--f-display); font-size: 28px; color: var(--gold); margin-right: 4px; font-variant-numeric: tabular-nums; }
+.rank { font-size: 30px; line-height: 1; color: var(--ink); }
+.lvname .tl { display: block; white-space: nowrap; font-weight: 400; color: var(--lapis); font-size: 15px; }
+.lvbtn.locked { opacity: .55; }
+.choices { display: grid; gap: 8px; }
+.choice { font: inherit; font-size: 17px; text-align: left; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.choice:hover:not([disabled]) { border-color: var(--lapis); }
+.choice.right { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); font-weight: 700; }
+.choice.wrong { border-color: var(--bad); color: var(--bad); text-decoration: line-through; }
+.choice.dim { opacity: .5; }
+.fc { container-type: inline-size; }
+.bigsign.multi { font-size: min(170px, calc(68cqi / var(--n, 1))); white-space: nowrap; }
+@media (max-width: 640px) { .levels { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lvbtn { padding: 10px; } .lvcount { font-size: 12px; } }
+.lvbtn { font: inherit; color: var(--ink); text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; cursor: pointer; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 4px 10px; }
+.lvbtn[aria-pressed="true"] { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+.lvname { font-weight: 700; }
+.lvsigns { font-size: 26px; line-height: 1; color: var(--muted); }
+.lvcount { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
+.bar { grid-column: 1 / -1; height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.bar span { display: block; height: 100%; background: var(--gold); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px; display: grid; gap: 12px; max-width: 640px; min-width: 0; }
+.kicker { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.bigsign { font-size: clamp(120px, 34vw, 190px); line-height: 1.1; background: var(--bg); border-radius: 12px; color: var(--ink); padding: 20px 10px; text-align: center; word-break: normal; }
+.fc .back { display: grid; gap: 6px; }
+.fc .reads { font-size: 28px; color: var(--lapis); }
+.fc .mean { font-size: 20px; font-weight: 700; }
+.fc .snote { font-size: 15px; color: var(--muted); margin: 0; max-width: 60ch; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ctl { justify-content: flex-end; }
+.ctl .btn { padding: 10px 18px; font-size: 15px; }
+.done h3 { font-family: var(--f-display); font-weight: 400; font-size: 24px; margin: 0; }
+.donesigns { font-size: 40px; color: var(--muted); margin: 0; word-break: normal; }
+.extra { max-width: 760px; }
+/* Archive objects and people */
+.obj { margin: 0; display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 16px; align-items: start; }
+.obj.big { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }
+.obj .pic img { width: 100%; border-radius: 8px; display: block; background: var(--bg); }
+.ph { aspect-ratio: 4 / 3; max-width: 100%; border-radius: 8px; background: var(--gold-soft); display: grid; place-items: center; align-content: center; gap: 4px; color: var(--muted); font-size: 12px; }
+.ph .cun { font-size: 44px; color: var(--gold); }
+.ey { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.obj h4, .person h4 { font-family: var(--f-display); font-weight: 400; font-size: 21px; margin: 2px 0 6px; text-wrap: balance; }
+.obj p, .person p { margin: 0 0 8px; font-size: 15px; max-width: 62ch; }
+.obj .cred { font-size: 13px; color: var(--muted); }
+a { color: var(--lapis); }
+.objs { display: grid; gap: 22px; }
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; min-width: 0; }
+.person.big { background: transparent; border: 0; padding: 0; }
+.person a { font-size: 14px; }
+h3.sub { font-family: var(--f-display); font-weight: 400; font-size: 20px; margin: 28px 0 12px; }
+.tools { padding-left: 20px; display: grid; gap: 6px; max-width: 70ch; font-size: 15px; }
+@media (max-width: 560px) { .obj, .obj.big { grid-template-columns: 1fr; } }
+.sign .snote { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+
+/* Writer */
+.writer { display: grid; gap: 16px; }
+.lbl { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.field { width: 100%; font-family: var(--f-translit); font-size: 22px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.field.en { font-family: var(--f-body); font-size: 17px; }
+.hint { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+.hint code { font-family: var(--f-translit); font-size: 15px; color: var(--ink); background: var(--gold-soft); padding: 0 5px; border-radius: 4px; }
+.tablet { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px 20px; min-height: 160px; display: grid; gap: 10px; min-width: 0; }
+.tablet .cun { font-size: clamp(52px, 11vw, 96px); }
+.tablet .tl { font-size: 20px; color: var(--lapis); }
+.unknown { color: var(--bad); font-family: var(--f-translit); font-size: 24px; text-decoration: underline wavy; }
+.det { font-size: .55em; vertical-align: super; }
+.pickers { display: grid; gap: 12px; }
+.picker { border: 1px dashed var(--gold); border-radius: 10px; padding: 12px 14px; display: grid; gap: 8px; }
+.picker .q { font-size: 14px; color: var(--muted); }
+.picker .q b { font-family: var(--f-translit); color: var(--ink); font-size: 17px; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt { font: inherit; display: flex; align-items: center; gap: 10px; padding: 6px 12px 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; text-align: left; }
+.opt .cun { font-size: 34px; line-height: 1; }
+.opt .t { display: grid; line-height: 1.25; }
+.opt .t b { font-family: var(--f-translit); font-weight: 400; font-size: 17px; color: var(--lapis); }
+.opt .t span { font-size: 13px; color: var(--muted); }
+.opt[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-soft); }
+.problems { font-size: 14px; color: var(--bad); margin: 0; }
+.status { font-size: 14px; color: var(--ok); min-height: 1.4em; margin: 0; }
+.shot { display: grid; gap: 8px; }
+.shot img { border-radius: 10px; border: 1px solid var(--line); width: 100%; max-width: 640px; }
+.sr { position: absolute; left: -9999px; }
+.say { font-size: 16px; color: var(--muted); }
+.say b { color: var(--gold); font-weight: 700; letter-spacing: .02em; }
+.listen { font: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 99px; padding: 6px 14px; cursor: pointer; border: 1px solid var(--gold); background: var(--gold-soft); color: var(--ink); }
+.listen::before { content: ""; width: 0; height: 0; border-left: 9px solid var(--gold); border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+.listen.sm { font-size: 13px; padding: 3px 10px; }
+.listen .tl { font-size: 1.1em; }
+.sign .row { margin-top: 6px; }
+.sign .say { font-size: 14px; }
+details.guide { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; margin: 0 0 22px; }
+details.guide summary { cursor: pointer; font-weight: 700; }
+details.guide p { margin: 10px 0 0; max-width: 66ch; font-size: 15px; }
+.snd { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 15px; }
+.snd td { padding: 6px 10px 6px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.snd td:first-child { font-family: var(--f-translit); font-size: 20px; color: var(--lapis); width: 3.5em; }
+.voice { font-size: 13px; color: var(--muted); margin: 0; }
+.speed { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: -8px 0 24px; }
+.speed .lbl { margin: 0 6px 0 0; }
+.sp { font: inherit; font-size: 14px; padding: 5px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.sp[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-soft); font-weight: 700; }
+.tok { font: inherit; color: inherit; background: none; border: 0; padding: 0 1px; border-bottom: 1px dotted var(--gold); cursor: pointer; border-radius: 3px; }
+.tok:hover, .tok.on { background: var(--gold-soft); }
+.tok.bad { color: var(--bad); }
+.explain { background: var(--bg); border-radius: 8px; padding: 12px 14px; font-size: 15px; }
+.explain .ex-head { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.explain .ex-head .cun { font-size: 44px; line-height: 1; }
+.explain .ex-head > div { min-width: 0; flex: 1; }
+.explain b.tl { font-size: 20px; color: var(--lapis); font-weight: 400; }
+.explain .sayit { color: var(--gold); }
+.explain .muted { color: var(--muted); }
+.explain ul { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 4px; }
+footer { color: var(--muted); font-size: 13px; padding: 0 16px 40px; }
+@media (prefers-reduced-motion: no-preference) { .btn, .opt, nav.tabs button { transition: background .15s, border-color .15s; } }
+
+
+/* History timeline */
+.eras { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 0; max-width: 760px; }
+.eras li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 4px 18px; padding: 14px 0; border-top: 1px solid var(--line); }
+.eras .when { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+.eras h4 { font-family: var(--f-display); font-weight: 400; font-size: 19px; margin: 0 0 4px; }
+.eras p { margin: 0 0 6px; font-size: 15px; max-width: 62ch; }
+.eras .inapp { font-size: 13px; color: var(--muted); font-style: italic; margin: 0; }
+@media (max-width: 560px) { .eras li { grid-template-columns: minmax(0, 1fr); } }
+.ey a.era { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+#history { scroll-margin-top: 16px; }
+
+/* Tip jar (Android app only) */
+.tipjar { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; max-width: 640px; display: grid; gap: 12px; }
+.tipjar p { margin: 0; max-width: 60ch; font-size: 15px; }
+.tipbtns { display: flex; flex-wrap: wrap; gap: 10px; }
+.tipbtn { font: inherit; display: grid; gap: 2px; text-align: left; min-width: 150px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--gold); background: var(--gold-soft); color: var(--ink); cursor: pointer; }
+.tipbtn b { font-size: 17px; }
+.tipbtn span { font-size: 13px; color: var(--muted); }
+.tipbtn[disabled] { opacity: .5; cursor: default; }
+.tipmsg { font-size: 14px; color: var(--ok); min-height: 1.4em; }
+.patron { display: inline-flex; align-items: center; gap: 6px; margin-left: 12px; font-size: 13px; color: var(--gold); }
+.patron svg { width: 26px; height: 12px; fill: currentColor; }
+.asktip { font-size: 15px; color: var(--muted); margin: 0; }
+.asktip a { color: var(--lapis); }
+/* ---- Phone fit ---- */
+details.note { border-left: 3px solid var(--gold); padding: 4px 0 4px 12px; max-width: 70ch; margin: 0 0 20px; font-size: 14px; color: var(--muted); }
+details.note summary { cursor: pointer; }
+details.note p { margin: 6px 0 0; }
+details.howto { margin: 0 0 18px; max-width: 62ch; }
+details.howto summary { cursor: pointer; color: var(--lapis); font-size: 15px; }
+details.howto .lede { margin: 8px 0 0; }
+.lvcount .short { display: none; }
+/* Small screens: shorter header, compact rank tiles in one row */
+@media (max-width: 640px), (max-height: 500px) {
+  header.mast { padding-top: 14px; }
+  .brand { gap: 8px; }
+  .brandline { gap: 24px; }
+  .brand .glyph { font-size: 28px; }
+  .brand h1 { font-size: 28px; }
+  .brand p { display: none; }
+  .wedges { gap: 4px; padding-top: 0; }
+  .wedges svg { width: 20px; height: 9px; }
+  nav.tabs { margin-top: 12px; }
+  nav.tabs button { padding: 10px 14px; font-size: 14px; }
+  main { padding-top: 16px; }
+  h2 { font-size: 22px; }
+  .speed { margin: -4px 0 16px; }
+  .levels { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 14px; }
+  .lvbtn { grid-template-columns: minmax(0, 1fr); padding: 8px 6px; gap: 2px; text-align: center; justify-items: center; }
+  .rank { font-size: 20px; }
+  .lvname { font-size: 13px; }
+  .lvname .tl { display: none; }
+  .lvcount { font-size: 11px; }
+  .lvcount .full { display: none; }
+  .lvcount .short { display: inline; }
+  .score { text-align: left; }
+  .card.fc.quiz > .choices { order: 2; }
+  .card.fc.quiz > .ctl { order: 3; }
+  .card.fc.quiz > .back { order: 4; }
+}
+/* Phone held sideways: sign on the left, answers on the right */
+@media (orientation: landscape) and (max-height: 500px) {
+  .card.fc { max-width: none; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); column-gap: 20px; align-items: start; }
+  .card.fc > * { grid-column: 2; }
+  .card.fc > .kicker { grid-column: 1 / -1; }
+  .card.fc > .bigsign { grid-column: 1; grid-row: 2 / span 6; font-size: min(150px, 34vh); padding: 14px 8px; }
+  .card.fc.quiz > .choices { order: 2; }
+  .card.fc.quiz > .ctl { order: 3; }
+  .card.fc.quiz > .back { order: 4; }
+  .card.fc > .bigsign.multi { font-size: min(110px, calc(60cqi / var(--n, 1))); }
+  .choice { padding: 9px 14px; }
+}
+/* Fingers need bigger targets */
+@media (pointer: coarse) {
+  .sp, .listen, .listen.sm, .btn, .chip { min-height: 44px; }
+  .listen.sm { padding: 6px 14px; }
+  .tok { padding: 6px 3px; }
+}
+/* ---- Layout fixes (Oct 18) ---- */
+/* Signs tab: each rank stacks full width; the list holder shares the card-grid class, which squeezed the ranks into narrow columns on tablets. */
+#signs { display: block; }
+.tierhead .cun { flex-shrink: 0; }
+.tierhead > div { min-width: 0; }
+/* Rank tiles on mid-width screens (tablets held upright): the Scribe tile's two-sign glyph left no room for "dub-sar", so the glyph sits above the name there. */
+@media (min-width: 641px) and (max-width: 900px) {
+  .lvbtn { grid-template-columns: minmax(0, 1fr); }
+}
+/* Very narrow phones: shrink the rank glyphs so the two-sign Scribe glyph fits its tile. */
+@media (max-width: 359px) { .lvbtn .rank { font-size: 17px; } }
+/* Web support links (shown on the web instead of the Android tip jar) */
+a.btn { display: inline-flex; align-items: center; text-decoration: none; }
+.weblinks { display: flex; flex-wrap: wrap; gap: 10px; }
+/* Android edge-to-edge: keep content clear of the status and navigation bars. Capacitor supplies --safe-area-inset-*; browsers use env(). */
+:root {
+  padding-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  padding-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  padding-left: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
+  padding-right: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; z-index: 1000; top: 0; left: 0; right: 0; height: var(--safe-area-inset-top, env(safe-area-inset-top, 0px)); background: var(--lapis-deep); pointer-events: none; }
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brandline">
+        <div class="glyph" aria-hidden="true">𒂍𒁾𒁀𒀀</div>
+        <h1>Eduba</h1>
+      </div>
+      <p>The “tablet house,” where Sumerian scribes learned to write.</p>
+      <div class="wedges" aria-hidden="true"><svg viewBox="0 0 64 28"><path d="M4.0,25.0 L4.0,3.0 L21.9,11.5 L60.0,14.0 L21.9,16.5Z"></path></svg><svg viewBox="0 0 64 28"><path d="M4.0,25.0 L4.0,3.0 L21.9,11.5 L60.0,14.0 L21.9,16.5Z"></path></svg><svg viewBox="0 0 64 28"><path d="M4.0,25.0 L4.0,3.0 L21.9,11.5 L60.0,14.0 L21.9,16.5Z"></path></svg></div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="t-lrn" aria-controls="p-lrn" aria-selected="true">Learn</button>
+      <button role="tab" id="t-phr" aria-controls="p-phr" aria-selected="false">Phrasebook</button>
+      <button role="tab" id="t-sig" aria-controls="p-sig" aria-selected="false">Signs</button>
+      <button role="tab" id="t-wri" aria-controls="p-wri" aria-selected="false" hidden>Write</button>
+      <button role="tab" id="t-cred" aria-controls="p-cred" aria-selected="false">About</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <details class="note"><summary>Pronunciation in this app is a scholarly reconstruction, read by an AI voice.</summary><p>Nobody knows exactly how Sumerian sounded, especially its stress and rhythm. Signs appear in the standard reference shapes used in modern sign lists and textbooks (Neo-Assyrian style). Scribes of the Ur III period wrote the same signs with older shapes.</p></details>
+
+  <div class="speed" role="group" aria-label="Voice speed">
+    <span class="lbl">Voice speed</span>
+    <button class="sp" data-rate="1">Normal</button>
+    <button class="sp" data-rate="0.75">Slow</button>
+    <button class="sp" data-rate="0.55">Very slow</button>
+  </div>
+
+  <section id="p-lrn" role="tabpanel" aria-labelledby="t-lrn">
+    <h2>Learn the signs</h2>
+    <details class="howto" id="howto"><summary>How Learn works</summary><p class="lede">Rise through the ranks of Sumer. As a scribe you start with the signs that have the fewest wedges; master every sign in a rank to move up, from priest to king, and finally to the names of the gods. Each new sign you get right earns 10 points. You can look up any sign at any time on the Signs tab, whatever your rank.</p><p class="lede">Signs you’ve learned come back as refreshers, further apart each time you remember them, for 5 points each. Every few cards, look at a real tablet or meet someone who helped us read them again.</p></details>
+    <div class="levels" id="levels"></div>
+    <div class="stage" id="stage" aria-live="polite"></div>
+  </section>
+
+  <section id="p-phr" role="tabpanel" aria-labelledby="t-phr" hidden>
+    <h2>Phrasebook</h2>
+    <p class="lede">Each phrase is marked as attested in real texts or built from attested parts. Tap any piece of a transliteration, such as <span class="tl">ŋu₁₀</span>, to see how to say it and what it means. Use “Copy cuneiform” to paste a phrase into a message.</p>
+    <details class="guide" id="guide">
+      <summary>How Sumerian sounded, as far as we know</summary>
+      <p>Pronunciation is reconstructed, mostly from lists in which Akkadian-speaking scribes spelled out how Sumerian words were read. Vowels and most consonants are fairly secure. Stress, tone and a few sounds are still debated, so treat the “Say it” lines as a good approximation.</p>
+      <table class="snd">
+        <tr><td>a e i u</td><td>Pure vowels, as in Spanish or Italian: <i>ah, eh, ee, oo</i>. There is no written <i>o</i>.</td></tr>
+        <tr><td>g</td><td>Always hard, as in <i>go</i>, never as in <i>gem</i>.</td></tr>
+        <tr><td>ŋ</td><td>The <i>ng</i> in <i>sing</i>, even at the start of a syllable: <span class="tl">ŋu₁₀</span> is <i>ngoo</i>.</td></tr>
+        <tr><td>š</td><td><i>sh</i> as in <i>ship</i>.</td></tr>
+        <tr><td>ḫ</td><td>Like the <i>ch</i> in Scottish <i>loch</i> or German <i>Bach</i>.</td></tr>
+        <tr><td>z</td><td>Uncertain. Probably closer to <i>ts</i> than English <i>z</i>, so this app says it as <i>ts</i>.</td></tr>
+        <tr><td>₂ ₃ ₁₀</td><td>Not pronounced. The small numbers only tell you which sign was written.</td></tr>
+        <tr><td>{d}</td><td>Markers like the god sign are silent. They were cues for the reader.</td></tr>
+      </table>
+    </details>
+    <div class="phrases" id="phrases"></div>
+  </section>
+
+  <section id="p-sig" role="tabpanel" aria-labelledby="t-sig" hidden>
+    <h2>Signs and words</h2>
+    <p class="lede">Grouped into the same ranks as Learn, from the scribe’s simplest signs to the names of the gods. Within each rank, signs go from fewest wedges to most. One sign often has several readings. The small numbers tell you which sign was written: <span class="tl">du</span>, <span class="tl">du₃</span> and <span class="tl">du₆</span> sound alike but are different signs.</p>
+    <label for="q" class="sr">Search signs</label>
+    <div class="filters">
+      <input id="q" class="search" type="search" placeholder="Search by reading or meaning: king, du, water…">
+      <div class="lvls" role="group" aria-label="Filter by complexity">
+        <button class="sp" data-lv="0" aria-pressed="true">All</button>
+        <button class="sp" data-lv="1" aria-pressed="false">Scribe</button>
+        <button class="sp" data-lv="2" aria-pressed="false">Priest</button>
+        <button class="sp" data-lv="3" aria-pressed="false">King</button>
+        <button class="sp" data-lv="4" aria-pressed="false">Deity</button>
+      </div>
+    </div>
+    <div class="signs" id="signs"></div>
+  </section>
+
+  <section id="p-wri" role="tabpanel" aria-labelledby="t-wri" hidden>
+    <h2>Write in cuneiform</h2>
+    <p class="lede">Type Sumerian in transliteration. Separate signs with hyphens and words with spaces.</p>
+    <div class="writer">
+      <div>
+        <label class="lbl" for="tin">Transliteration</label>
+        <input id="tin" class="field" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" value="lugal-e e2 mu-du3">
+        <p class="hint">Not sure which <code>du</code>? Type it without a number and choose by meaning below. Type <code>j</code> for <span class="tl">ŋ</span> (the “ng” in sing), and <code>{d}</code> for the god marker.</p>
+      </div>
+      <div class="pickers" id="pickers"></div>
+      <div class="tablet" aria-live="polite" data-ex-host>
+        <div class="cun" id="out"></div>
+        <div class="tl" id="outtl"></div>
+        <div class="explain" hidden></div>
+        <div class="say" id="outsay"></div>
+        <button class="listen" id="listen" type="button">Listen</button>
+        <p class="voice">Tap any part of the transliteration to see how to say it.</p>
+      </div>
+      <p class="problems" id="problems"></p>
+      <div>
+        <label class="lbl" for="ein">English (optional, shown on the image)</label>
+        <input id="ein" class="field en" type="text" value="The king built the house.">
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="copy">Copy cuneiform</button>
+        <button class="btn" id="copyall">Copy with transliteration</button>
+        <button class="btn" id="img">Make an image</button>
+      </div>
+      <p class="status" id="status"></p>
+      <div class="shot" id="shot" hidden>
+        <img id="shotimg" alt="Your message as an image">
+        <p class="hint">Long-press or right-click the image to save or share it. Images keep the sign shapes; pasted text depends on the reader’s fonts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="p-cred" role="tabpanel" aria-labelledby="t-cred" hidden>
+    <h2 id="history">Cuneiform through time</h2>
+    <p class="lede">Cuneiform was used for more than three thousand years, and Sumerian outlived the Sumerians by nearly two thousand. Dates are approximate, and the names of periods are the ones museums and scholars use.</p>
+    <ol class="eras">
+      <li><div class="when">ca. 3300–2900 BCE</div><div><h4>Uruk and Jemdet Nasr</h4>
+        <p>Writing begins in southern Mesopotamia as a way to keep accounts. Signs are drawn or pressed into clay, mostly numbers and goods.</p>
+        <p class="inapp">In this app: the proto-cuneiform barley account</p></div></li>
+      <li><div class="when">ca. 2900–2350 BCE</div><div><h4>Early Dynastic</h4>
+        <p>Sumerian city-states such as Ur, Uruk, Lagash and Nippur. The signs turn into wedges, and scribes begin writing royal inscriptions and the first literature.</p>
+        <p class="inapp">In this app: the tablet from Nippur</p></div></li>
+      <li><div class="when">ca. 2350–2150 BCE</div><div><h4>Akkadian Empire</h4>
+        <p>Sargon of Akkad unites the region. Akkadian, a Semitic language unrelated to Sumerian, becomes a language of government, written with the same signs. Sumerian is still spoken in the south.</p>
+        <p class="inapp">In this app: Enheduanna, Sargon’s daughter, who wrote hymns in Sumerian</p></div></li>
+      <li><div class="when">ca. 2150–2000 BCE</div><div><h4>Neo-Sumerian: Lagash II and Ur III</h4>
+        <p>After Akkad falls, Sumerian rulers take back control. Gudea of Lagash and the kings of the Third Dynasty of Ur write in Sumerian, and their state leaves behind tens of thousands of tablets. Museums often label objects from this time “Neo-Sumerian,” meaning the Sumerian revival after Akkad.</p>
+        <p class="inapp">In this app: Gudea, Ur-Namma’s foundation figure, the messengers’ rations</p></div></li>
+      <li><div class="when">ca. 2000–1600 BCE</div><div><h4>Old Babylonian</h4>
+        <p>Sumerian stops being spoken day to day, and Akkadian takes over. Sumerian lives on as a learned language for religion, law and literature, much as Latin did in medieval Europe. Students copy it in the eduba, and most Sumerian literature survives in their copies.</p>
+        <p class="inapp">In this app: the student’s practice tablet</p></div></li>
+      <li><div class="when">ca. 1600 BCE–80 CE</div><div><h4>Later Mesopotamia and beyond</h4>
+        <p>Cuneiform spreads across the Near East and is adapted for Hittite, Elamite, Urartian and other languages. Babylonian and Assyrian scribes keep copying Sumerian hymns and incantations, often with an Akkadian translation line by line. The last tablets that can be dated are astronomical records from the 1st century CE. After that, the script was forgotten until scholars deciphered it in the 1800s.</p>
+        <p class="inapp">In this app: the sign shapes, which follow the later Neo-Assyrian style used in modern sign lists</p></div></li>
+    </ol>
+
+    <h2>The people behind this</h2>
+    <p class="lede">Everything in this app rests on the work of ancient scribes and of the people who spent careers recovering their writing. Follow the links to their own work.</p>
+    <h3 class="sub">People</h3>
+    <div class="people" id="people"></div>
+    <h3 class="sub">Tablets and objects</h3>
+    <div class="objs" id="objs"></div>
+    <h3 class="sub">Tools this app uses</h3>
+    <ul class="tools">
+      <li>Cuneiform text is standard Unicode, encoded from a proposal by Michael Everson, Karljürgen Feuerherm and Steve Tinney (Unicode 5.0, 2006).</li>
+      <li>Signs are drawn with Noto Sans Cuneiform from Google’s Noto project, under the SIL Open Font License.</li>
+      <li>Meanings and readings follow the conventions of the electronic Pennsylvania Sumerian Dictionary (ePSD2).</li>
+      <li>The voice was generated with ElevenLabs and checked by ear, sound by sound. Pronunciation follows the standard scholarly reconstruction described in the Phrasebook guide, with a few choices of our own where scholars disagree or the evidence runs out: z is said as <i>ts</i>, r is tapped or rolled, and stress is evenly spread because nobody knows where it fell.</li>
+    </ul>
+    <section id="support" hidden>
+      <h3 class="sub" id="supporthead">Support the scribe</h3>
+      <div class="tipjar" id="appsupport">
+        <p>Eduba is free, with no ads, and is made by one person. Tips help cover the voice recordings and the tools behind the app. They don’t unlock anything; everything in Eduba is already yours.</p>
+        <div class="tipbtns" id="tipbtns"></div>
+        <div class="tipmsg" id="tipmsg" role="status"></div>
+      </div>
+      <div class="tipjar" id="websupport" hidden>
+        <p id="webtext"></p>
+        <div class="weblinks" id="weblinks"></div>
+      </div>
+    </section>
+  </section>
+</main>
+<footer class="wrap">Starter set: 68 signs, 9 gods, 10 phrases. See About for the history of cuneiform and the scholars, projects and museums this app depends on.</footer>
+
+<script>
+// Features that are built but switched off for now. Set write: true to bring back the Write tab.
+const FEATURES = { write: false };
+
+// ---------- Data: signs (code point, Unicode name, readings) ----------
+// Readings use subscript indices exactly as in transliteration. Add a row to extend the converter.
+const SIGNS = [
+  { k:"A",     cp:0x12000, r:{ "a":"water; also the syllable a" } },
+  { k:"AB",    cp:0x1200A, r:{ "ab":"syllable ab" } },
+  { k:"AN",    cp:0x1202D, r:{ "an":"sky, heaven; the god An", "dingir":"god", "d":"marker before a god’s name (not spoken)" } },
+  { k:"BA",    cp:0x12040, r:{ "ba":"syllable ba" } },
+  { k:"BI",    cp:0x12049, r:{ "bi":"its; syllable bi" } },
+  { k:"DA",    cp:0x12055, r:{ "da":"with; syllable da" } },
+  { k:"DI",    cp:0x12072, r:{ "di":"lawsuit; syllable di", "silim":"health, well-being" } },
+  { k:"DU",    cp:0x1207A, r:{ "du":"to go", "gub":"to stand" } },
+  { k:"DUB",   cp:0x1207E, r:{ "dub":"clay tablet" } },
+  { k:"E",     cp:0x1208A, r:{ "e":"syllable e; marks the doer (ergative)" } },
+  { k:"E₂",    cp:0x1208D, r:{ "e₂":"house, temple" } },
+  { k:"EN",    cp:0x12097, r:{ "en":"lord; high priest(ess)" } },
+  { k:"GA₂×AN",cp:0x120BC, r:{ "ama":"mother" } },
+  { k:"GAL",   cp:0x120F2, r:{ "gal":"big, great" } },
+  { k:"GI",    cp:0x12100, r:{ "gi":"reed" } },
+  { k:"GIŠ",   cp:0x12111, r:{ "ŋeš":"tree, wood", "giš":"marker before wooden objects (not spoken)" } },
+  { k:"U₃",    cp:0x12147, r:{ "u₃":"and; also starts a polite command" } },
+  { k:"KA",    cp:0x12157, r:{ "ka":"mouth", "dug₄":"to speak, say", "inim":"word", "zu₂":"tooth" } },
+  { k:"KAK",   cp:0x12195, r:{ "du₃":"to build", "kak":"peg, nail" } },
+  { k:"KI",    cp:0x121A0, r:{ "ki":"earth, place; marker after place names" } },
+  { k:"KUR",   cp:0x121B3, r:{ "kur":"mountain; foreign land; underworld" } },
+  { k:"DU₆",   cp:0x121EF, r:{ "du₆":"mound, ruin hill" } },
+  { k:"LU₂",   cp:0x121FD, r:{ "lu₂":"person, man" } },
+  { k:"LUGAL", cp:0x12217, r:{ "lugal":"king; owner" } },
+  { k:"MU",    cp:0x1222C, r:{ "mu":"name; year; syllable mu", "ŋu₁₀":"my" } },
+  { k:"NA",    cp:0x1223E, r:{ "na":"syllable na" } },
+  { k:"NAM",   cp:0x12246, r:{ "nam":"fate; makes abstract nouns (-ship, -hood)" } },
+  { k:"NI",    cp:0x1224C, r:{ "ni":"syllable ni", "i₃":"oil; syllable i" } },
+  { k:"RA",    cp:0x1228F, r:{ "ra":"to; for (dative)" } },
+  { k:"SAL",   cp:0x122A9, r:{ "munus":"woman", "sal":"thin, narrow" } },
+  { k:"SAR",   cp:0x122AC, r:{ "sar":"to write; garden" } },
+  { k:"TA",    cp:0x122EB, r:{ "ta":"from" } },
+  { k:"TUR",   cp:0x12309, r:{ "dumu":"child, son", "tur":"small" } },
+  { k:"U",     cp:0x1230B, r:{ "u":"ten" } },
+  { k:"UD",    cp:0x12313, r:{ "ud":"day; sun", "u₄":"day; when", "utu":"Utu, the sun god", "babbar":"white" } },
+  { k:"URI",   cp:0x12335, r:{ "uri":"Akkad (in ki-uri)" } },
+  { k:"URU",   cp:0x12337, r:{ "uru":"city", "iri":"city (alternate modern reading)" } },
+  { k:"ZU",    cp:0x1236A, r:{ "zu":"your; to know" } },
+  { k:"NIN",   cp:0x1238F, r:{ "nin":"lady, queen" } },
+  { k:"IR",    cp:0x12034, r:{ "arad₂":"servant, slave" } },
+  // Simple signs added for beginners
+  { k:"DIŠ",   cp:0x12079, r:{ "diš":"one (in counting)" } },
+  { k:"AŠ",    cp:0x12038, r:{ "aš":"one, single" } },
+  { k:"MIN",   cp:0x1222B, r:{ "min":"two" } },
+  { k:"3(DIŠ)",cp:0x12408, r:{ "eš₅":"three" } },
+  { k:"4(DIŠ)",cp:0x12409, r:{ "limmu₂":"four" } },
+  { k:"5(DIŠ)",cp:0x1240A, r:{ "ia₂":"five" } },
+  { k:"BAR",   cp:0x12047, r:{ "bar":"outside; back" } },
+  { k:"ME",    cp:0x12228, r:{ "me":"divine power; to be" } },
+  { k:"NU",    cp:0x12261, r:{ "nu":"not" } },
+  { k:"LAL",   cp:0x121F2, r:{ "la₂":"to hang; to weigh out" } },
+  { k:"MAŠ",   cp:0x12226, r:{ "maš":"half; twin" } },
+  { k:"ḪAL",   cp:0x1212C, r:{ "ḫal":"to divide, share out" } },
+  { k:"TAB",   cp:0x122F0, r:{ "tab":"to double, pair" } },
+  { k:"IGI",   cp:0x12146, r:{ "igi":"eye; face; in front" } },
+  { k:"ŠE",    cp:0x122BA, r:{ "še":"barley, grain" } },
+  { k:"ŠU",    cp:0x122D7, r:{ "šu":"hand" } },
+  { k:"PA",    cp:0x1227A, r:{ "pa":"branch, leaf", "ŋidru":"scepter" } },
+  { k:"ḪA",    cp:0x12129, r:{ "ku₆":"fish", "ḫa":"syllable ḫa" } },
+  { k:"TI",    cp:0x122FE, r:{ "ti":"arrow; rib; life", "til₃":"to live" } },
+  { k:"KU",    cp:0x121AA, r:{ "tuš":"to sit, dwell", "ku":"syllable ku" } },
+  { k:"IM",    cp:0x1214E, r:{ "im":"clay; wind, storm" } },
+  { k:"LU",    cp:0x121FB, r:{ "udu":"sheep" } },
+  { k:"SAG",   cp:0x12295, r:{ "saŋ":"head" } },
+  { k:"ŠEŠ",   cp:0x122C0, r:{ "šeš":"brother" } },
+  { k:"NUN",   cp:0x12263, r:{ "nun":"prince, noble" } },
+  { k:"DAM",   cp:0x1206E, r:{ "dam":"spouse, husband or wife" } },
+  { k:"MI",    cp:0x1222A, r:{ "gi₆":"night; black" } },
+  { k:"ZI",    cp:0x12363, r:{ "zi":"life, breath" } },
+];
+const ch = cp => String.fromCodePoint(cp);
+
+// ---------- Word cards (subset of signs worth learning first) ----------
+const WORDS = [
+  { s:"LUGAL", show:"lugal", mean:"king", note:"Literally “big man”: the sign grew from LU₂ (man) combined with GAL (big)." },
+  { s:"E₂", show:"e₂", mean:"house, temple", note:"A god’s temple was simply that god’s house." },
+  { s:"AN", show:"an · dingir", mean:"sky; god", note:"One sign, three jobs: “sky,” “god,” and a silent marker written before gods’ names." },
+  { s:"KI", show:"ki", mean:"earth, place", note:"Also written silently after city names. an ki = heaven and earth." },
+  { s:"LU₂", show:"lu₂", mean:"person, man", note:"" },
+  { s:"SAL", show:"munus", mean:"woman", note:"The sign’s name in sign lists is SAL." },
+  { s:"NIN", show:"nin", mean:"lady, queen", note:"Also the first part of many goddess names, such as Ninhursaŋa." },
+  { s:"EN", show:"en", mean:"lord; high priest", note:"" },
+  { s:"TUR", show:"dumu · tur", mean:"child, son; small", note:"Same sign for “child” and “small.”" },
+  { s:"GA₂×AN", show:"ama", mean:"mother", note:"" },
+  { s:"URU", show:"uru · iri", mean:"city", note:"Scholars still debate which reading is right." },
+  { s:"KUR", show:"kur", mean:"mountain; foreign land", note:"For flat Sumer, the mountains were foreign territory and the land of the dead." },
+  { s:"UD", show:"ud · u₄ · utu", mean:"day, sun; the sun god", note:"The sign shows the sun rising between mountains." },
+  { s:"KA", show:"ka · dug₄ · inim", mean:"mouth; to speak; word", note:"A head with the mouth area marked. Also read zu₂, “tooth.”" },
+  { s:"DUB", show:"dub", mean:"clay tablet", note:"dub-sar, “tablet writer,” is a scribe." },
+  { s:"SAR", show:"sar", mean:"to write", note:"" },
+  { s:"A", show:"a", mean:"water", note:"Also the plain syllable a. a-a means “father.”" },
+  { s:"GAL", show:"gal", mean:"big, great", note:"e₂-gal, “big house,” is a palace." },
+  { s:"DU", show:"du", mean:"to go", note:"Sounds like du₃ and du₆, but a different sign." },
+  { s:"KAK", show:"du₃", mean:"to build", note:"Also read kak, “peg.”" },
+  { s:"DU₆", show:"du₆", mean:"mound, ruin hill", note:"The same word as the “tell” of archaeology." },
+  { s:"MU", show:"mu · ŋu₁₀", mean:"name, year; my", note:"ŋ sounds like the ng in sing." },
+  { s:"GIŠ", show:"ŋeš · giš", mean:"tree, wood", note:"Also a silent marker before wooden objects." },
+  { s:"DI", show:"silim", mean:"health, well-being", note:"Also read di. Related to Semitic š-l-m, as in shalom and salaam." },
+  { s:"DIŠ", show:"diš", mean:"one", note:"A single upright wedge. Counting starts here." },
+  { s:"MIN", show:"min", mean:"two", note:"" },
+  { s:"3(DIŠ)", show:"eš₅", mean:"three", note:"Count the wedges: the number signs are written the way they look." },
+  { s:"4(DIŠ)", show:"limmu₂", mean:"four", note:"" },
+  { s:"5(DIŠ)", show:"ia₂", mean:"five", note:"Written i-a by scholars, but said as one syllable: ya." },
+  { s:"U", show:"u", mean:"ten", note:"A single hooked wedge, the Winkelhaken. 𒌋𒁹 is eleven." },
+  { s:"AŠ", show:"aš", mean:"one, single", note:"A single horizontal wedge." },
+  { s:"BAR", show:"bar", mean:"outside; back", note:"" },
+  { s:"ME", show:"me", mean:"divine power; to be", note:"The me were the gods’ powers that made civilization work, from kingship to weaving." },
+  { s:"NU", show:"nu", mean:"not", note:"Placed before a verb to negate it." },
+  { s:"LAL", show:"la₂", mean:"to hang; to weigh out", note:"Silver was weighed out, not counted." },
+  { s:"MAŠ", show:"maš", mean:"half; twin", note:"" },
+  { s:"ḪAL", show:"ḫal", mean:"to divide, share out", note:"" },
+  { s:"TAB", show:"tab", mean:"to double, pair", note:"Two signs side by side, for “paired.”" },
+  { s:"IGI", show:"igi", mean:"eye; face; in front", note:"" },
+  { s:"ŠE", show:"še", mean:"barley, grain", note:"Barley was food, wages and a unit of currency." },
+  { s:"ŠU", show:"šu", mean:"hand", note:"" },
+  { s:"PA", show:"pa · ŋidru", mean:"branch; scepter", note:"" },
+  { s:"ḪA", show:"ku₆", mean:"fish", note:"Originally a drawing of a fish. Also the syllable ḫa." },
+  { s:"TI", show:"ti · til₃", mean:"arrow; life; to live", note:"Arrow and life sounded alike, so one sign served both." },
+  { s:"KU", show:"tuš", mean:"to sit, dwell", note:"" },
+  { s:"IM", show:"im", mean:"clay; wind", note:"Clay was the writing material." },
+  { s:"LU", show:"udu", mean:"sheep", note:"" },
+  { s:"SAG", show:"saŋ", mean:"head", note:"" },
+  { s:"ŠEŠ", show:"šeš", mean:"brother", note:"" },
+  { s:"NUN", show:"nun", mean:"prince, noble", note:"" },
+  { s:"DAM", show:"dam", mean:"spouse", note:"Means husband or wife. Sumerian has no grammatical gender." },
+  { s:"MI", show:"gi₆", mean:"night; black", note:"" },
+  { s:"ZI", show:"zi", mean:"life, breath", note:"" },
+];
+
+// ---------- Phrases ----------
+const PHRASES = [
+  { tl:"lugal-ŋu₁₀-ra u₃-na-a-dug₄", en:"Speak to my lord:", status:"att", per:"Ur III and Old Babylonian letters",
+    gloss:[["lugal","king, lord"],["-ŋu₁₀","my"],["-ra","to"],["u₃-na-a-dug₄","say it to him"]],
+    comment:"The standard way to open a letter. It addresses the messenger who will read it aloud. Good for starting a message to a friend.", write:"lugal-ŋu₁₀-ra u₃-na-a-dug₄" },
+  { tl:"nin-ŋu₁₀-ra u₃-na-a-dug₄", en:"Speak to my lady:", status:"att", per:"Ur III and Old Babylonian letters",
+    gloss:[["nin","lady"],["-ŋu₁₀","my"],["-ra","to"],["u₃-na-a-dug₄","say it to her"]],
+    comment:"The same opening for a woman. Sumerian verbs do not mark him or her, so the verb is unchanged." },
+  { tl:"e₂-a-ni mu-na-du₃", en:"He built his temple for him.", status:"att", per:"Lagash II and Ur III royal inscriptions",
+    gloss:[["e₂","house, temple"],["-a-ni","his"],["mu-na-","for him"],["du₃","built"]],
+    comment:"The core of countless building inscriptions, such as those of Gudea of Lagash: a ruler records the temple he built for a god." },
+  { tl:"lugal ki-en-gi ki-uri", en:"King of Sumer and Akkad", status:"att", per:"Ur III royal titles",
+    gloss:[["lugal","king"],["ki-en-gi","Sumer"],["ki-uri","Akkad"]],
+    comment:"A title claimed by Ur-Namma and his successors. ki-en-gi is the Sumerians’ own name for their land." },
+  { tl:"nam-lugal", en:"kingship", status:"att", per:"Royal and literary texts",
+    gloss:[["nam-","-ship"],["lugal","king"]],
+    comment:"nam- turns a noun into an abstract idea, much like English -ship or -hood." },
+  { tl:"an ki", en:"heaven and earth", status:"att", per:"Literary and religious texts",
+    gloss:[["an","heaven"],["ki","earth"]],
+    comment:"The Sumerian way to say “the whole universe.”" },
+  { tl:"dub-sar", en:"scribe", status:"att", per:"Common from Early Dynastic on",
+    gloss:[["dub","tablet"],["sar","to write"]],
+    comment:"Literally “tablet writer.”" },
+  { tl:"e₂-dub-ba-a", en:"the tablet house (scribal school)", status:"att", per:"Old Babylonian school texts",
+    gloss:[["e₂","house"],["dub","tablet"],["-ba-a","of the"]],
+    comment:"Where students copied Sumerian for centuries after it stopped being spoken. This app is named after it." },
+  { tl:"dingir-ŋu₁₀", en:"my god", status:"att", per:"Prayers and personal names",
+    gloss:[["dingir","god"],["-ŋu₁₀","my"]],
+    comment:"Each person had a personal god who looked after them." },
+  { tl:"ama-ŋu₁₀", en:"my mother", status:"built", per:"Modern, from attested parts",
+    gloss:[["ama","mother"],["-ŋu₁₀","my"]],
+    comment:"A simple, grammatical combination. Swap in dumu (child) or nin (lady) the same way." },
+];
+
+// ---------- Ranks and the Deity tier ----------
+const TIERS = {
+  1: { name: "Scribe", tl: "dub-sar", glyph: "𒁾𒊬", blurb: "Signs with only a few wedges" },
+  2: { name: "Priest", tl: "sanga",   glyph: "𒋃",   blurb: "Signs of medium complexity" },
+  3: { name: "King",   tl: "lugal",   glyph: "𒈗",   blurb: "The most complex signs" },
+  4: { name: "Deity",  tl: "dingir",  glyph: "𒀭",   blurb: "The names of the gods" },
+};
+// Gods' names start with the silent god marker 𒀭 {d}, except An, who is the star itself.
+const DEITIES = [
+  { name:"An", tl:"an", glyph:"𒀭", mean:"An, god of the sky",
+    note:"The oldest of the gods. His name is simply the star sign, which also means “sky.”" },
+  { name:"Enlil", tl:"{d}en-lil₂", glyph:"𒀭𒂗𒆤", mean:"Enlil, chief of the gods",
+    note:"“Lord Wind.” His temple at Nippur made it the religious heart of Sumer." },
+  { name:"Enki", tl:"{d}en-ki", glyph:"𒀭𒂗𒆠", mean:"Enki, god of fresh water and wisdom",
+    note:"“Lord of the earth.” Patron of crafts and magic, worshipped at Eridu." },
+  { name:"Inanna", tl:"{d}inanna", glyph:"𒀭𒈹", mean:"Inanna, goddess of love and war",
+    note:"Also the planet Venus. Patron of Uruk, and the subject of Enheduanna’s hymns." },
+  { name:"Utu", tl:"{d}utu", glyph:"𒀭𒌓", mean:"Utu, god of the sun and justice",
+    note:"Written with the sun sign UD, which you met as “day.”" },
+  { name:"Nanna", tl:"{d}nanna", glyph:"𒀭𒋀𒆠", mean:"Nanna, god of the moon",
+    note:"Patron of Ur. His name is written with the signs ŠEŠ and KI but read as one word, nanna." },
+  { name:"Dumuzid", tl:"{d}dumu-zid", glyph:"𒀭𒌉𒍣", mean:"Dumuzid, the shepherd god",
+    note:"“The good son,” Inanna’s husband. Later known as Tammuz." },
+  { name:"Ereškigal", tl:"{d}ereš-ki-gal", glyph:"𒀭𒎏𒆠𒃲", mean:"Ereškigal, queen of the underworld",
+    note:"“Lady of the great earth.” Inanna’s sister, in the myth of Inanna’s Descent." },
+  { name:"Nisaba", tl:"{d}nisaba", glyph:"𒀭𒉀", mean:"Nisaba, goddess of writing and grain",
+    note:"Patron of scribes. School tablets often end “Praise be to Nisaba!” (nisaba za₃-mi₂)." },
+];
+
+// ---------- Reading index ----------
+const SUB = "₀₁₂₃₄₅₆₇₈₉";
+const toSub = s => s.replace(/[0-9]/g, d => SUB[+d]);
+const READ = new Map();   // reading -> {cp, mean, sign}
+const BASE = new Map();   // base (no index) -> [readings]
+const baseOf = r => r.replace(/[₀-₉]+$/, "");
+const idxOf = r => { const m = r.match(/[₀-₉]+$/); return m ? +[...m[0]].map(c => SUB.indexOf(c)).join("") : 1; };
+for (const s of SIGNS) for (const [r, mean] of Object.entries(s.r)) {
+  READ.set(r, { cp: s.cp, mean, sign: s.k });
+  const b = baseOf(r); if (!BASE.has(b)) BASE.set(b, []); BASE.get(b).push(r);
+}
+for (const list of BASE.values()) list.sort((a, b) => idxOf(a) - idxOf(b));
+
+function norm(t) {
+  return toSub(t.toLowerCase().trim())
+    .replace(/g~|ĝ|g̃|j/g, "ŋ").replace(/sz|sh/g, "š").replace(/c/g, "š").replace(/h/g, "ḫ")
+    .replace(/₁$/, "");
+}
+// Parse into words -> pieces. Determinatives in braces.
+function parse(text) {
+  const words = [];
+  let pos = 0;
+  for (const w of text.split(/\s+/).filter(Boolean)) {
+    const pieces = [];
+    const re = /\{([^}]*)\}|[^\-.{}]+/g; let m;
+    while ((m = re.exec(w))) {
+      const det = m[1] !== undefined;
+      const raw = det ? m[1] : m[0];
+      const r = norm(raw);
+      pieces.push({ raw, r, det, hit: READ.get(r), base: baseOf(r), pos: pos++ });
+    }
+    words.push(pieces);
+  }
+  return words;
+}
+
+// ---------- Pronunciation ----------
+// Words are re-syllabified across hyphens (lugal-e -> lu-ga-le), indices and determinatives dropped.
+const V = new Set(["a","e","i","u"]);
+// Readings whose spelling doesn't show how they were said (ia₂ "five" is one syllable, "ya").
+const PRON = { "ia₂": "ya", "dingir": "diŋir" };
+const strip = r => PRON[r] || r.replace(/[₀-₉]+$/, "").replace(/[^a-zšŋḫ]/g, "");
+function syllables(letters) {
+  const vi = []; letters.forEach((c, i) => V.has(c) && vi.push(i));
+  if (!vi.length) return [letters.join("")];
+  const out = []; let start = 0;
+  vi.forEach((v, n) => {
+    const next = vi[n + 1];
+    let end;
+    if (next === undefined) end = letters.length;
+    else { const gap = next - v - 1; end = gap <= 1 ? v + 1 : v + 2; }
+    out.push(letters.slice(start, end)); start = end;
+  });
+  return out;
+}
+const EN_C = { "š":"sh", "ŋ":"ng", "ḫ":"kh", "y":"y", "z":"ts" }, EN_V = { a:"ah", e:"eh", i:"ee", u:"oo" };
+function respellWord(str) {
+  return syllables([...str]).map(s => {
+    let o = ""; s.forEach((c, i) => {
+      if (V.has(c)) o += EN_V[c];
+      else o += EN_C[c] || c;
+    });
+    return o;
+  }).join("-");
+}
+// Phonemes for the build-time synthesizer (eSpeak NG phoneme notation). Stress is unknown, so every syllable gets equal weight.
+const PH = { "š":"S", "ŋ":"N", "ḫ":"x", "z":"dz", "y":"j" };
+const phonemeWord = str => syllables([...str]).map(s => "," + s.map(c => PH[c] || c).join("")).join("");
+function wordsOf(tl) {   // -> array of spoken strings, one per word
+  return parse(tl).map(w => w.filter(p => !p.det).map(p => strip(p.r)).join("")).filter(Boolean);
+}
+const sayOf = tl => wordsOf(tl).map(respellWord).join("  ");
+const keyOf = tl => parse(tl).map(w => w.map(p => p.det ? `{${p.r}}` : p.r).join("-")).join(" ");
+
+// Audio clips are generated ahead of time and embedded below, so playback needs no voice on the device.
+const AUDIO = {"p:lugal-ŋu₁₀-ra u₃-na-a-dug₄":"audio/sum-p-lugal-ngu10-ra_u3-na-a-dug4.mp3","p:nin-ŋu₁₀-ra u₃-na-a-dug₄":"audio/sum-p-nin-ngu10-ra_u3-na-a-dug4.mp3","p:e₂-a-ni mu-na-du₃":"audio/sum-p-e2-a-ni_mu-na-du3.mp3","p:lugal ki-en-gi ki-uri":"audio/sum-p-lugal_ki-en-gi_ki-uri.mp3","p:nam-lugal":"audio/sum-p-nam-lugal.mp3","p:an ki":"audio/sum-p-an_ki.mp3","p:dub-sar":"audio/sum-p-dub-sar.mp3","p:e₂-dub-ba-a":"audio/sum-p-e2-dub-ba-a.mp3","p:dingir-ŋu₁₀":"audio/sum-p-dingir-ngu10.mp3","p:ama-ŋu₁₀":"audio/sum-p-ama-ngu10.mp3","p:{d}-en-lil₂":"audio/sum-d-en-lil2.mp3","p:{d}-en-ki":"audio/sum-d-en-ki.mp3","p:{d}-inanna":"audio/sum-d-inanna.mp3","p:{d}-utu":"audio/sum-d-utu.mp3","p:{d}-nanna":"audio/sum-d-nanna.mp3","p:{d}-dumu-zid":"audio/sum-d-dumu-zid.mp3","p:{d}-ereš-ki-gal":"audio/sum-d-eresh-ki-gal.mp3","p:{d}-nisaba":"audio/sum-d-nisaba.mp3","r:a":"audio/sum-w-a.mp3","r:ab":"audio/sum-w-ab.mp3","r:an":"audio/sum-w-an.mp3","r:dingir":"audio/sum-w-dingir.mp3","r:ba":"audio/sum-w-ba.mp3","r:bi":"audio/sum-w-bi.mp3","r:da":"audio/sum-w-da.mp3","r:di":"audio/sum-w-di.mp3","r:silim":"audio/sum-w-silim.mp3","r:du":"audio/sum-w-du.mp3","r:gub":"audio/sum-w-gub.mp3","r:dub":"audio/sum-w-dub.mp3","r:e":"audio/sum-w-e.mp3","r:e₂":"audio/sum-w-e2.mp3","r:en":"audio/sum-w-en.mp3","r:ama":"audio/sum-w-ama.mp3","r:gal":"audio/sum-w-gal.mp3","r:gi":"audio/sum-w-gi.mp3","r:ŋeš":"audio/sum-w-ngesh.mp3","r:giš":"audio/sum-w-gish.mp3","r:u₃":"audio/sum-w-u3.mp3","r:ka":"audio/sum-w-ka.mp3","r:dug₄":"audio/sum-w-dug4.mp3","r:inim":"audio/sum-w-inim.mp3","r:zu₂":"audio/sum-w-zu2.mp3","r:du₃":"audio/sum-w-du3.mp3","r:kak":"audio/sum-w-kak.mp3","r:ki":"audio/sum-w-ki.mp3","r:kur":"audio/sum-w-kur.mp3","r:du₆":"audio/sum-w-du6.mp3","r:lu₂":"audio/sum-w-lu2.mp3","r:lugal":"audio/sum-w-lugal.mp3","r:mu":"audio/sum-w-mu.mp3","r:ŋu₁₀":"audio/sum-w-ngu10.mp3","r:na":"audio/sum-w-na.mp3","r:nam":"audio/sum-w-nam.mp3","r:ni":"audio/sum-w-ni.mp3","r:i₃":"audio/sum-w-i3.mp3","r:ra":"audio/sum-w-ra.mp3","r:munus":"audio/sum-w-munus.mp3","r:sal":"audio/sum-w-sal.mp3","r:sar":"audio/sum-w-sar.mp3","r:ta":"audio/sum-w-ta.mp3","r:dumu":"audio/sum-w-dumu.mp3","r:tur":"audio/sum-w-tur.mp3","r:u":"audio/sum-w-u.mp3","r:ud":"audio/sum-w-ud.mp3","r:u₄":"audio/sum-w-u4.mp3","r:utu":"audio/sum-w-utu.mp3","r:babbar":"audio/sum-w-babbar.mp3","r:uri":"audio/sum-w-uri.mp3","r:uru":"audio/sum-w-uru.mp3","r:iri":"audio/sum-w-iri.mp3","r:zu":"audio/sum-w-zu.mp3","r:nin":"audio/sum-w-nin.mp3","r:arad₂":"audio/sum-w-arad2.mp3","r:diš":"audio/sum-w-dish.mp3","r:aš":"audio/sum-w-ash.mp3","r:min":"audio/sum-w-min.mp3","r:eš₅":"audio/sum-w-esh5.mp3","r:limmu₂":"audio/sum-w-limmu2.mp3","r:ia₂":"audio/sum-w-ia2.mp3","r:bar":"audio/sum-w-bar.mp3","r:me":"audio/sum-w-me.mp3","r:nu":"audio/sum-w-nu.mp3","r:la₂":"audio/sum-w-la2.mp3","r:maš":"audio/sum-w-mash.mp3","r:ḫal":"audio/sum-w-khal.mp3","r:tab":"audio/sum-w-tab.mp3","r:igi":"audio/sum-w-igi.mp3","r:še":"audio/sum-w-she.mp3","r:šu":"audio/sum-w-shu.mp3","r:pa":"audio/sum-w-pa.mp3","r:ŋidru":"audio/sum-w-ngidru.mp3","r:ku₆":"audio/sum-w-ku6.mp3","r:ḫa":"audio/sum-w-kha.mp3","r:ti":"audio/sum-w-ti.mp3","r:til₃":"audio/sum-w-til3.mp3","r:tuš":"audio/sum-w-tush.mp3","r:ku":"audio/sum-w-ku.mp3","r:im":"audio/sum-w-im.mp3","r:udu":"audio/sum-w-udu.mp3","r:saŋ":"audio/sum-w-sang.mp3","r:šeš":"audio/sum-w-shesh.mp3","r:nun":"audio/sum-w-nun.mp3","r:dam":"audio/sum-w-dam.mp3","r:gi₆":"audio/sum-w-gi6.mp3","r:zi":"audio/sum-w-zi.mp3"};
+let playing = [];
+let rate = 0.75;
+try { const r = parseFloat(localStorage.getItem("eduba-rate")); if (r) rate = r; } catch {}
+function stopAudio() { playing.forEach(a => { a.pause(); a.src = ""; }); playing = []; }
+function playSeq(clips) {
+  stopAudio();
+  const list = clips.filter(Boolean).map(src => { const a = new Audio(src);
+    a.preservesPitch = true; a.playbackRate = rate; return a; });
+  playing = list;
+  list.forEach((a, i) => { if (list[i + 1]) a.addEventListener("ended", () => setTimeout(() => playing === list && list[i + 1].play(), 120 / rate)); });
+  if (list[0]) list[0].play().catch(() => flash("Your browser blocked audio. Click Listen again."));
+  return list.length;
+}
+// Whole phrase if we have it, otherwise sign by sign.
+function speak(tl) {
+  const whole = AUDIO["p:" + keyOf(tl)];
+  if (whole) { playSeq([whole]); return; }
+  const missing = [], clips = [];
+  for (const w of parse(tl)) for (const p of w) {
+    if (p.det) continue;
+    const c = AUDIO["r:" + p.r]; c ? clips.push(c) : missing.push(p.raw);
+  }
+  playSeq(clips);
+  if (missing.length) flash(`No audio yet for: ${[...new Set(missing)].join(", ")}.`);
+}
+
+// Tap-to-explain for any piece of transliteration.
+function explainHTML(raw, det) {
+  const r = norm(raw), hit = READ.get(r), idx = idxOf(r), base = baseOf(r);
+  if (det) return `<div class="ex-head"><span class="cun">${hit ? ch(hit.cp) : ""}</span><div><b class="tl">{${esc(r)}}</b> is a silent marker. ${hit ? esc(hit.mean) + "." : ""} Readers saw it but did not say it.</div></div>`;
+  const parts = [];
+  if (r.includes("ŋ")) parts.push("ŋ is the ng in sing, even at the start of a syllable.");
+  if (r.includes("š")) parts.push("š is sh.");
+  if (r.includes("ḫ")) parts.push("ḫ is the ch in Scottish loch.");
+  if (r.includes("z")) parts.push("z probably sounded closer to ts or dz.");
+  if (/g/.test(r)) parts.push("g is always hard, as in go.");
+  if (idx > 1) parts.push(`The small ${toSub(String(idx))} is not pronounced. Several different signs are read “${base}”, and the number tells you this is sign number ${idx} in the scholars’ list.`);
+  return `<div class="ex-head">
+    <span class="cun">${hit ? ch(hit.cp) : "?"}</span>
+    <div><b class="tl">${esc(r)}</b> · say <b class="sayit">${esc(respellWord(strip(r)))}</b>${hit ? `<br>${esc(hit.mean)} <span class="muted">· sign ${esc(hit.sign)}</span>` : `<br><span class="muted">Not in the starter set yet.</span>`}</div>
+    ${AUDIO["r:" + r] ? `<button class="listen sm" data-speak="${esc(r)}">Listen</button>` : ""}
+  </div>${parts.length ? `<ul>${parts.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}`;
+}
+// Transliteration as tappable pieces.
+function tlHTML(tl) {
+  return parse(tl).map(w => w.map((p, i) => {
+    const sep = i && !p.det && !w[i - 1].det ? "-" : "";
+    const label = p.det ? `{${p.r}}` : p.r;
+    return `${sep}<button class="tok${p.hit ? "" : " bad"}" data-raw="${esc(p.raw)}" data-det="${p.det ? 1 : ""}">${esc(label)}</button>`;
+  }).join("")).join(" ");
+}
+
+// ---------- Rendering helpers ----------
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" })[c]);
+const toCun = tl => parse(tl).map(w => w.map(p => p.hit ? ch(p.hit.cp) : "").join("")).join(" ");
+
+function renderPhrases() {
+  $("phrases").innerHTML = PHRASES.map((p, i) => `
+    <article class="phrase" data-ex-host>
+      <div class="chips">
+        <span class="chip ${p.status}">${p.status === "att" ? "Attested" : "Built from attested parts"}</span>
+        <span class="chip per">${esc(p.per)}</span>
+      </div>
+      <div class="cun" lang="sux-Xsux">${toCun(p.tl)}</div>
+      <div class="tl" lang="sux-Latn">${tlHTML(p.tl)}</div>
+      <div class="explain" hidden></div>
+      <div class="say">Say it: <b>${esc(sayOf(p.tl))}</b></div>
+      <div class="en">${esc(p.en)}</div>
+      <div class="gloss">${p.gloss.map(([a, b]) => `<span><b>${esc(a)}</b> ${esc(b)}</span>`).join("")}</div>
+      <p class="comment">${esc(p.comment)}</p>
+      <div class="actions">
+        <button class="listen" data-speak="${esc(p.tl)}">Listen</button>
+        ${FEATURES.write ? `<button class="btn primary" data-write="${i}">Write it</button>` : ""}
+        <button class="btn" data-copy="${i}">Copy cuneiform</button>
+      </div>
+    </article>`).join("");
+}
+// Visual complexity: ink area of each glyph, measured at build time from the cuneiform font.
+const INK = {"73728": 5415, "73738": 8649, "73773": 9198, "73792": 6934, "73801": 10881, "73813": 11844, "73842": 8485, "73850": 8403, "73854": 20957, "73866": 9119, "73869": 12664, "73879": 6928, "73916": 11332, "73970": 11462, "73984": 15377, "74001": 5961, "74055": 14588, "74071": 15283, "74133": 7932, "74144": 9477, "74163": 4538, "74223": 9941, "74237": 9727, "74263": 16519, "74284": 9701, "74302": 8009, "74310": 18120, "74316": 7822, "74383": 10797, "74409": 4624, "74412": 10101, "74475": 10323, "74505": 11812, "74507": 3078, "74515": 5057, "74549": 13475, "74551": 11128, "74602": 12075, "74639": 12163, "73780": 9024, "73849": 2511, "73784": 2751, "74283": 5029, "74760": 8324, "74761": 6106, "74762": 7845, "73799": 2397, "74280": 4397, "74337": 4453, "74226": 4468, "74278": 5120, "74028": 5297, "74480": 5484, "74054": 6445, "74426": 6666, "74455": 7866, "74362": 7895, "74025": 7925, "74494": 8520, "74154": 6157, "74062": 9260, "74235": 7314, "74389": 12009, "74432": 11197, "74339": 10292, "73838": 14488, "74282": 17406, "74595": 16157};
+const levelOf = cp => { const v = INK[cp] || 9000; return v <= 6200 ? 1 : v <= 10500 ? 2 : 3; };
+const LEVEL = { 1:"Scribe", 2:"Priest", 3:"King" };
+let level = 0;
+// One Listen button per reading; labelled with the reading when a sign has more than one.
+function listenButtons(w, small) {
+  const rs = w.show.split(" · ");
+  return rs.map(r => `<button class="listen${small ? " sm" : ""}" data-speak="${esc(r)}">${rs.length > 1 ? `<span class="tl">${esc(r)}</span>` : "Listen"}</button>`).join("");
+}
+function renderSigns(q = "") {
+  const ql = q.trim().toLowerCase(), nq = norm(q);
+  const matches = c => {
+    if (!ql) return true;
+    if (c.mean.toLowerCase().includes(ql) || c.show.includes(nq)) return true;
+    if (c.deity) return false;
+    const s = SIGNS.find(x => x.k === c.id);
+    return Object.keys(s.r).some(r => r.startsWith(nq) || baseOf(r) === baseOf(nq));
+  };
+  const sections = [1, 2, 3, 4].filter(lv => !level || level === lv).map(lv => {
+    const t = TIERS[lv], items = deckFor(lv).filter(matches);
+    if (!items.length) return "";
+    return `<section class="tier">
+      <header class="tierhead">
+        <span class="cun">${t.glyph}</span>
+        <div><h3>${t.name} <span class="tl">${t.tl}</span></h3><p>${esc(t.blurb)} · ${items.length} ${lv === 4 ? "names" : "signs"}</p></div>
+      </header>
+      <div class="signs">${items.map(c => signCardHTML(c, lv)).join("")}</div>
+    </section>`;
+  }).join("");
+  $("signs").innerHTML = sections || `<p class="lede">Nothing ${level ? "in this rank " : ""}matches “${esc(q)}”.</p>`;
+}
+function signCardHTML(c, lv) {
+  let meta;
+  if (c.deity) {
+    const EXTRA = { 0x12240: "NAGA", 0x12239: "MUŠ₃", 0x121A4: "KID" };
+    const parts = [...c.glyph].map(g => { const cp = g.codePointAt(0), s = SIGNS.find(x => x.cp === cp); return s ? s.k : EXTRA[cp] || "U+" + cp.toString(16).toUpperCase(); });
+    const codes = [...c.glyph].map(g => "U+" + g.codePointAt(0).toString(16).toUpperCase()).join(" + ");
+    meta = parts.length > 1 ? `Written ${parts.join(" + ")}<span class="codes">${codes}</span>` : `Sign ${parts[0]} · ${codes}`;
+  } else {
+    const s = SIGNS.find(x => x.k === c.id);
+    meta = `Sign ${esc(s.k)} · U+${s.cp.toString(16).toUpperCase()}`;
+  }
+  return `<article class="sign${c.deity ? " god" : ""}" style="--n:${[...c.glyph].length}">
+    <div class="cun" lang="sux-Xsux">${c.glyph}</div>
+    <div class="reads">${esc(c.show)}</div>
+    <div class="say">Say it: <b>${esc(c.speak.map(sayOf).join(" · "))}</b></div>
+    <div class="mean">${esc(c.mean)}</div>
+    <div class="name"><span class="lv lv${Math.min(lv, 3)}"><i></i><i></i><i></i></span>${meta}</div>
+    ${c.note ? `<p class="snote">${esc(c.note)}</p>` : ""}
+    <div class="row">${c.speak.map(r => `<button class="listen sm" data-speak="${esc(r)}">${c.speak.length > 1 ? `<span class="tl">${esc(r)}</span>` : "Listen"}</button>`).join("")}</div>
+  </article>`;
+}
+
+let current = { cun: "", tl: "" };
+function renderWriter() {
+  const words = parse($("tin").value);
+  const unknown = [];
+  let html = "", plain = [], tls = [];
+  for (const w of words) {
+    let wh = "", wp = "";
+    for (const p of w) {
+      if (p.hit) {
+        const g = ch(p.hit.cp);
+        wh += p.det ? `<span class="det">${g}</span>` : g; wp += g;
+      } else { wh += `<span class="unknown">${esc(p.raw)}</span>`; unknown.push(p.raw); }
+    }
+    html += (html ? " " : "") + wh; plain.push(wp);
+    tls.push(w.map((p, i) => p.det ? `{${p.r}}` : (i && !w[i - 1].det ? "-" : "") + p.r).join(""));
+  }
+  $("out").innerHTML = html || `<span class="hint">Your cuneiform appears here.</span>`;
+  $("outtl").innerHTML = tlHTML($("tin").value);
+  const exw = document.querySelector(".tablet .explain"); exw.hidden = true;
+  const say = sayOf($("tin").value);
+  $("outsay").innerHTML = say ? `Say it: <b>${esc(say)}</b>` : "";
+  current = { cun: plain.join(" "), tl: tls.join(" ") };
+  $("problems").textContent = unknown.length ? `Not in the starter set yet: ${[...new Set(unknown)].join(", ")}.` : "";
+
+  // Pickers for every piece whose base has more than one sign
+  const pk = [];
+  for (const w of words) for (const p of w) {
+    const opts = BASE.get(p.base);
+    if (!opts || (opts.length < 2 && p.hit)) continue;
+    const chosen = p.hit ? p.r : null;
+    pk.push(`<div class="picker"><div class="q">Which <b>${esc(p.base)}</b> did you mean?${p.r === p.base && !/1$/.test(p.raw) ? " You typed it without a number." : ""}</div>
+      <div class="opts">${opts.map(r => { const h = READ.get(r); return `<button class="opt" data-pos="${p.pos}" data-r="${r}" aria-pressed="${r === chosen}">
+        <span class="cun">${ch(h.cp)}</span><span class="t"><b>${r}</b><span>${esc(h.mean)}</span></span></button>`; }).join("")}</div></div>`);
+  }
+  $("pickers").innerHTML = pk.join("");
+}
+
+// Replace one piece (by position) in the input text with the chosen reading.
+function choose(pos, r) {
+  const text = $("tin").value; let n = 0;
+  const out = text.replace(/\{[^}]*\}|[^\s\-.{}]+/g, m => (n++ === pos && !m.startsWith("{")) ? r : m);
+  $("tin").value = out; renderWriter();
+}
+
+async function copyText(t, msg) {
+  try { await navigator.clipboard.writeText(t); flash(msg); }
+  catch { const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch {} ta.remove();
+    flash(ok ? msg : "Copy was blocked here. Select the cuneiform and copy it by hand."); }
+}
+let ft; function flash(m) { $("status").textContent = m; clearTimeout(ft); ft = setTimeout(() => $("status").textContent = "", 3500); }
+
+async function makeImage() {
+  if (!current.cun) { flash("Type something first."); return; }
+  try { await document.fonts.load('96px "Noto Sans Cuneiform"', current.cun); await document.fonts.load('32px "Gentium Book Plus"'); } catch {}
+  const W = 1080, pad = 72, cv = document.createElement("canvas"), x = cv.getContext("2d");
+  // measure cuneiform lines
+  let size = 120; x.font = `${size}px "Noto Sans Cuneiform"`;
+  const lines = []; let line = "";
+  for (const g of Array.from(current.cun)) { const t = line + g; if (x.measureText(t).width > W - 2 * pad && line) { lines.push(line); line = g.trim(); } else line = t; }
+  if (line) lines.push(line);
+  const en = $("ein").value.trim();
+  const H = pad + lines.length * size * 1.3 + 40 + 48 + (en ? 56 : 0) + 64 + pad;
+  cv.width = W; cv.height = Math.round(H);
+  x.fillStyle = "#142a66"; x.fillRect(0, 0, W, H);
+  x.fillStyle = "#e2b84a"; x.fillRect(pad, pad - 24, 120, 4);
+  x.fillStyle = "#f4f1e6"; x.textBaseline = "top"; x.font = `${size}px "Noto Sans Cuneiform"`;
+  let y = pad; for (const l of lines) { x.fillText(l, pad, y); y += size * 1.3; }
+  y += 24; x.fillStyle = "#c9d4f5"; x.font = `40px "Gentium Book Plus", Georgia, serif`; x.fillText(current.tl, pad, y, W - 2 * pad); y += 56;
+  if (en) { x.fillStyle = "#f4f1e6"; x.font = `italic 36px "Gentium Book Plus", Georgia, serif`; x.fillText(en, pad, y, W - 2 * pad); y += 56; }
+  x.fillStyle = "#e2b84a"; x.font = `22px "Marcellus", Georgia, serif`; x.fillText("SUMERIAN · WRITTEN IN EDUBA", pad, H - pad);
+  $("shotimg").src = cv.toDataURL("image/png"); $("shot").hidden = false; flash("Image ready below.");
+}
+
+// ---------- Archive: real objects (all public domain, The Metropolitan Museum of Art) ----------
+const IMAGES = {"met321878": "img/met321878.jpg", "met325504": "img/met325504.jpg", "met327069": "img/met327069.jpg", "met329067": "img/met329067.jpg", "met329072": "img/met329072.jpg", "met329081": "img/met329081.jpg"};
+const TABLETS = [
+  { id:"met329081", title:"Proto-cuneiform account of barley distribution", date:"ca. 3100–2900 BCE", period:"Jemdet Nasr", place:"Probably Uruk",
+    size:"5.4 × 6 cm", acc:"1988.433.1", credit:"Purchase, Raymond and Beverly Sackler Gift, 1988", url:"https://www.metmuseum.org/art/collection/search/329081",
+    img:"https://collectionapi.metmuseum.org/api/collection/v1/iiif/329081/717141/main-image",
+    look:"This is writing before wedges. The round and curved marks are numbers pressed in with the end of a stylus, and the other signs were drawn. The rolled seal shows a man leading dogs on a hunt for boars in the marshes. It most likely records grain handed out by a temple.", glyph:"𒊺" },
+  { id:"met325504", title:"Tablet from Nippur", date:"ca. 2600–2350 BCE", period:"Early Dynastic III", place:"Nippur",
+    size:"4.4 × 3.9 cm", acc:"62.70.99", credit:"Rogers Fund, 1962", url:"https://www.metmuseum.org/art/collection/search/325504",
+    img:"https://collectionapi.metmuseum.org/api/collection/v1/iiif/325504/1804396/main-image",
+    look:"Excavated at Nippur, the religious center of Sumer, by the Joint Expedition of 1960–61. Some signs here are still drawn with the stylus point rather than pressed as wedges, and the deep oval marks are numbers. Lines divide the surface into boxes, called cases. Scholars have not yet identified what kind of text it is.", glyph:"𒂗𒆤" },
+  { id:"met327069", title:"Rations for messengers", date:"ca. 2028 BCE", period:"Ur III (Neo-Sumerian)", place:"Umma",
+    size:"3 × 2.8 cm", acc:"1985.180.2", credit:"Gift of Archbishop Elias F. Shaheen, 1985", url:"https://www.metmuseum.org/art/collection/search/327069",
+    img:"https://collectionapi.metmuseum.org/api/collection/v1/iiif/327069/689024/main-image",
+    look:"Only 3 cm across, smaller than a matchbox. It records beer, bread, oil and onions given to messengers, dated to the first year of King Ibbi-Sin. Tens of thousands of receipts like this survive from the Ur III state.", glyph:"𒉌𒆠" },
+  { id:"met329067", title:"Foundation figure of King Ur-Namma", date:"ca. 2112–2095 BCE", period:"Ur III (Neo-Sumerian)", place:"Temple of Inanna",
+    size:"27.3 cm tall", acc:"47.49", credit:"Gift of Mrs. William H. Moore, 1947", url:"https://www.metmuseum.org/art/collection/search/329067",
+    img:"https://collectionapi.metmuseum.org/api/collection/v1/iiif/329067/1568016/main-image",
+    look:"The king carries a basket of earth on his head for the ceremony of making the first brick. Figures like this were buried in temple foundations. The inscription records that Ur-Namma built or restored a temple of Inanna. Compare the phrasebook’s e₂-a-ni mu-na-du₃. Sumerian uses one word for “his” and “her,” so for Inanna it means “he built her temple for her.”", glyph:"𒂍𒈬𒅆" },
+  { id:"met329072", title:"Statue of Gudea", date:"ca. 2090 BCE", period:"Lagash II (Neo-Sumerian)", place:"Probably Girsu",
+    size:"44 cm tall, diorite", acc:"59.2", credit:"Harris Brisbane Dick Fund, 1959", url:"https://www.metmuseum.org/art/collection/search/329072",
+    img:"https://collectionapi.metmuseum.org/api/collection/v1/iiif/329072/2104063/main-image",
+    look:"Gudea, ruler of Lagash, sits with his hands folded in prayer. The Sumerian inscription carved on the statue gives it a name: “Gudea, the man who built the house, may his life be long.” You already know two of its key words, e₂ (house) and du₃ (to build).", glyph:"𒂍𒆕" },
+  { id:"met321878", title:"A student’s practice tablet", date:"ca. 20th–16th century BCE", period:"Old Babylonian", place:"Mesopotamia",
+    size:"7.6 × 2.9 cm", acc:"86.11.251", credit:"Purchase, 1886", url:"https://www.metmuseum.org/art/collection/search/321878",
+    img:"https://collectionapi.metmuseum.org/api/collection/v1/iiif/321878/1575272/main-image",
+    look:"Homework from a scribal school, the eduba. The teacher wrote the name of the god Urash on one side, and the student copied it six times on the other. The first sign is the star 𒀭, the god marker you learned as AN.", glyph:"𒀭𒀭𒀭" },
+];
+
+const PEOPLE = [
+  { name:"Enheduanna", dates:"ca. 2300 BCE", role:"High priestess at Ur and poet",
+    text:"Daughter of Sargon of Akkad and high priestess (en) of the moon god Nanna at Ur. Hymns in Sumerian are attributed to her, including the Exaltation of Inanna, which makes her the earliest author known by name.",
+    link:["https://en.wikipedia.org/wiki/Enheduanna","Read about Enheduanna"] },
+  { name:"The scribes of the eduba", dates:"ca. 2000–1600 BCE", role:"Students and teachers",
+    text:"After Sumerian stopped being spoken, schools kept it alive for centuries. Most Sumerian literature survives because students copied it, mistakes and all, on tablets like the practice tablet in this app.",
+    link:["https://etcsl.orinst.ox.ac.uk/","Read their texts at ETCSL"] },
+  { name:"Carsten Niebuhr", dates:"1733–1815", role:"Explorer and surveyor",
+    text:"The only survivor of a Danish expedition to the Middle East (1761–67). His careful copies of the inscriptions at Persepolis showed that they used three different cuneiform scripts, and gave later decipherers accurate material to work from.",
+    link:["https://en.wikipedia.org/wiki/Carsten_Niebuhr","Read about Niebuhr"] },
+  { name:"Edward Hincks", dates:"1792–1866", role:"Irish clergyman and decipherer",
+    text:"Worked out that cuneiform signs stand for syllables and that one sign can have several readings. He also argued that the script had been invented by an earlier, non-Semitic people. Those people turned out to be the Sumerians.",
+    link:["https://en.wikipedia.org/wiki/Edward_Hincks","Read about Hincks"] },
+  { name:"Rawlinson, Hincks, Oppert and Talbot", dates:"1857", role:"The decipherment test",
+    text:"The Royal Asiatic Society sent the same newly found inscription to four scholars, who translated it independently in sealed envelopes. Their versions agreed closely, which convinced the world that cuneiform had really been deciphered.",
+    link:["https://en.wikipedia.org/wiki/Cuneiform#Decipherment","Read about the decipherment"] },
+  { name:"Jules Oppert", dates:"1825–1905", role:"Assyriologist",
+    text:"In 1869 he proposed the name “Sumerian” for the language behind the oldest cuneiform, taken from the ancient royal title “king of Sumer and Akkad.” The name stuck.",
+    link:["https://en.wikipedia.org/wiki/Jules_Oppert","Read about Oppert"] },
+  { name:"Ernest de Sarzec", dates:"1832–1901", role:"Excavator",
+    text:"A French diplomat whose excavations at Tello (ancient Girsu) from 1877 uncovered the statues of Gudea and thousands of tablets. These finds showed the world that Sumerian civilization was real.",
+    link:["https://en.wikipedia.org/wiki/Ernest_de_Sarzec","Read about de Sarzec"] },
+  { name:"Samuel Noah Kramer", dates:"1897–1990", role:"Sumerologist, University of Pennsylvania",
+    text:"Spent decades piecing together Sumerian literature from fragments scattered across museums in Philadelphia, Istanbul and elsewhere. His book History Begins at Sumer brought the Sumerians to a wide audience.",
+    link:["https://en.wikipedia.org/wiki/Samuel_Noah_Kramer","Read about Kramer"] },
+  { name:"Thorkild Jacobsen", dates:"1904–1993", role:"Sumerologist, Chicago and Harvard",
+    text:"His 1939 study of the Sumerian King List remains a landmark. His translations in The Harps That Once… made Sumerian poetry readable as poetry.",
+    link:["https://en.wikipedia.org/wiki/Thorkild_Jacobsen","Read about Jacobsen"] },
+  { name:"Irving Finkel", dates:"born 1951", role:"Curator, British Museum",
+    text:"A curator of cuneiform at the British Museum and one of its best ambassadors. He reconstructed the rules of the Royal Game of Ur from a tablet, and his book The Ark Before Noah shares cuneiform scholarship with everyone.",
+    link:["https://en.wikipedia.org/wiki/Irving_Finkel","Read about Finkel"] },
+  { name:"CDLI", dates:"since the late 1990s", role:"Cuneiform Digital Library Initiative",
+    text:"Founded by Robert K. Englund (UCLA) and Peter Damerow (Max Planck Institute for the History of Science). It catalogs and photographs cuneiform tablets from collections around the world, free for anyone to use.",
+    link:["https://cdli.earth/","Visit CDLI"] },
+  { name:"ETCSL", dates:"1997–2006", role:"Electronic Text Corpus of Sumerian Literature, Oxford",
+    text:"Led by Jeremy Black with Graham Cunningham, Eleanor Robson, Gábor Zólyomi and others. It put about 400 Sumerian literary works online with English translations.",
+    link:["https://etcsl.orinst.ox.ac.uk/","Visit ETCSL"] },
+  { name:"ePSD2 and Oracc", dates:"ongoing", role:"University of Pennsylvania and partners",
+    text:"Steve Tinney’s electronic Pennsylvania Sumerian Dictionary and the Oracc network of corpus projects link every word to the texts it appears in. The glosses in this app follow their conventions.",
+    link:["https://oracc.museum.upenn.edu/epsd2/","Visit ePSD2"] },
+];
+
+function tabletHTML(t, big) {
+  const pic = IMAGES[t.id]
+    ? `<img src="${IMAGES[t.id]}" alt="${esc(t.title)}, ${esc(t.date)}" loading="lazy">`
+    : `<div class="ph"><span class="cun">${t.glyph}</span><span>Photo not added yet</span></div>`;
+  return `<figure class="obj${big ? " big" : ""}">
+    <div class="pic">${pic}</div>
+    <figcaption>
+      <div class="ey"><a href="#history" class="era" data-history>${esc(t.period)}</a> · ${esc(t.date)} · ${esc(t.place)}</div>
+      <h4>${esc(t.title)}</h4>
+      <p>${esc(t.look)}</p>
+      <p class="cred">The Metropolitan Museum of Art, ${esc(t.acc)}. ${esc(t.credit)}. Public domain. ${esc(t.size)}.
+        <a href="${t.url}" target="_blank" rel="noopener">See it at the Met</a></p>
+    </figcaption></figure>`;
+}
+function personHTML(p, big) {
+  return `<article class="person${big ? " big" : ""}">
+    <div class="ey">${esc(p.dates)} · ${esc(p.role)}</div>
+    <h4>${esc(p.name)}</h4>
+    <p>${esc(p.text)}</p>
+    <a href="${p.link[0]}" target="_blank" rel="noopener">${esc(p.link[1])}</a>
+  </article>`;
+}
+function renderCredits() {
+  $("people").innerHTML = PEOPLE.map(p => personHTML(p)).join("");
+  $("objs").innerHTML = TABLETS.map(t => tabletHTML(t)).join("");
+}
+
+// ---------- Flashcards with points ----------
+// New signs are introduced face up, then quizzed a couple of cards later with three choices.
+// A right answer earns 10 points and marks the card learned. Every 5 cards, an archive or people card appears.
+const POINTS = 10;
+const cardSign = w => SIGNS.find(x => x.k === w.s);
+const toCard = w => ({ id: w.s, glyph: ch(cardSign(w).cp), show: w.show, mean: w.mean, note: w.note, speak: w.show.split(" · ") });
+const deityCard = d => ({ id: "god:" + d.name, glyph: d.glyph, show: d.tl, mean: d.mean, note: d.note, speak: [d.tl], deity: true });
+const deckFor = lv => lv === 4 ? DEITIES.map(deityCard)
+  : [...WORDS].filter(w => levelOf(cardSign(w).cp) === lv)
+      .sort((a, b) => (INK[cardSign(a).cp] || 0) - (INK[cardSign(b).cp] || 0)).map(toCard);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+let learned = new Set(store.get("eduba-learned", []));
+let points = store.get("eduba-points", 0);
+let patron = store.get("eduba-patron", false);   // set after a tip; shows the patron mark
+const TIP = { ready: false, busy: false };        // tip jar state (Android app only)
+let skipped = new Set(store.get("eduba-skipped", []));
+const saveProgress = () => { store.set("eduba-learned", [...learned]); store.set("eduba-points", points); store.set("eduba-skipped", [...skipped]); };
+// Spaced refreshers: each learned sign has a strength (1–5). Right answers raise it and push the next
+// refresher further out; a miss drops it to 0 so it comes back in this session. Ranks never go backward.
+const REVIEW_POINTS = 5;
+const MIN = 60e3, DAY = 864e5;
+const INTERVALS = [10 * MIN, DAY, 3 * DAY, 7 * DAY, 21 * DAY];
+let mem = store.get("eduba-mem", {});
+const saveMem = () => store.set("eduba-mem", mem);
+const levelOfCard = id => [1, 2, 3, 4].find(lv => deckFor(lv).some(c => c.id === id)) || 1;
+function remember(id, ok) {
+  const m = mem[id] || { b: 0, due: 0 };
+  if (ok) { m.b = Math.min(5, m.b + 1); m.due = Date.now() + INTERVALS[m.b - 1]; }
+  else { m.b = 0; m.due = Date.now(); }
+  mem[id] = m; saveMem();
+}
+// Learned signs from open ranks whose refresher is due. Signs learned before refreshers existed count as due.
+function dueRefreshers() {
+  const now = Date.now(), inQueue = new Set(L.queue.map(q => q.c.id));
+  const out = [];
+  for (const lv of [1, 2, 3, 4]) {
+    if (!unlocked(lv)) continue;
+    for (const c of deckFor(lv)) {
+      if (!learned.has(c.id) || inQueue.has(c.id) || (L.cur && L.cur.c && L.cur.c.id === c.id)) continue;
+      const m = mem[c.id];
+      if (!m || m.due <= now) out.push({ c, lv, due: m ? m.due : 0 });
+    }
+  }
+  return out.sort((a, b) => a.due - b.due);
+}
+function nextRefresherText() {
+  const times = [...learned].map(id => mem[id] ? mem[id].due : 0).filter(t => t > Date.now());
+  if (!times.length) return "";
+  const ms = Math.min(...times) - Date.now();
+  const when = ms < 60 * MIN ? `in ${Math.max(1, Math.round(ms / MIN))} minutes`
+    : ms < DAY ? `in ${Math.round(ms / (60 * MIN))} hours`
+    : ms < 2 * DAY ? "tomorrow" : `in ${Math.round(ms / DAY)} days`;
+  return `Your next refresher is due ${when}.`;
+}
+const tierDone = lv => deckFor(lv).every(c => learned.has(c.id));
+const unlocked = lv => lv === 1 || skipped.has(lv) || tierDone(lv - 1);
+const L = { lv: 1, step: 0, seen: 0, queue: [], fresh: [], cur: null, extra: 0, lastExtra: 0, sinceReview: 0 };
+
+function startLevel(lv) {
+  if (!unlocked(lv)) { L.lv = lv; L.cur = { kind: "locked" }; renderLevels(); renderStage(); return; }
+  L.lv = lv; L.step = 0; L.queue = []; L.cur = null;
+  L.fresh = deckFor(lv).filter(c => !learned.has(c.id));
+  store.set("eduba-level", lv);
+  next(); renderLevels();
+}
+function next() {
+  L.step++;
+  if (L.seen && L.seen % 5 === 0 && L.lastExtra !== L.seen && L.fresh.length + L.queue.length) {
+    L.lastExtra = L.seen;
+    const pick = L.extra % 2 === 0 ? { t: TABLETS[(L.extra / 2) % TABLETS.length] } : { p: PEOPLE[((L.extra - 1) / 2) % PEOPLE.length] };
+    L.extra++; L.cur = { kind: "extra", ...pick }; L.step--; renderStage(); return;
+  }
+  const due = L.queue.findIndex(q => q.due <= L.step);
+  const refresh = dueRefreshers();
+  if (due >= 0) { const q = L.queue.splice(due, 1)[0]; L.cur = quiz(q.c, q.lv, q.review); }
+  else if (refresh.length && (L.sinceReview >= 2 || !L.fresh.length)) {
+    const r = refresh[0]; L.sinceReview = 0; L.cur = quiz(r.c, r.lv, true);
+  }
+  else if (L.fresh.length) { L.sinceReview++; L.cur = { kind: "new", c: L.fresh.shift() }; }
+  else if (L.queue.length) { L.queue.sort((a, b) => a.due - b.due); const q = L.queue.shift(); L.cur = quiz(q.c, q.lv, q.review); }
+  else L.cur = { kind: "done" };
+  if (L.cur.kind !== "done") L.seen++;
+  renderStage();
+  if (L.started) keepInView(); L.started = true;
+}
+// On small screens, bring the new card into view instead of leaving it below the fold.
+function keepInView() {
+  const st = $("stage"); if (!st || $("p-lrn").hidden) return;
+  const top = st.getBoundingClientRect().top;
+  if (top < 0 || top > innerHeight * 0.5) {
+    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    st.scrollIntoView({ block: "start", behavior: calm ? "auto" : "smooth" });
+  }
+}
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function quiz(c, lv = L.lv, review = false) {
+  const others = shuffle(deckFor(lv).filter(x => x.id !== c.id && x.mean !== c.mean)).slice(0, 2);
+  return { kind: "quiz", c, lv, review, options: shuffle([c, ...others]), picked: null };
+}
+function pick(i) {
+  const q = L.cur; if (q.picked != null) return;
+  q.picked = i;
+  const ok = q.options[i].id === q.c.id;
+  if (ok) {
+    const first = !learned.has(q.c.id);
+    learned.add(q.c.id); points += q.review && !first ? REVIEW_POINTS : POINTS; q.earned = true;
+  } else L.queue.push({ c: q.c, lv: q.lv, review: q.review, due: L.step + 2 });
+  remember(q.c.id, ok);
+  saveProgress(); renderLevels(); renderStage();
+}
+function renderLevels() {
+  $("levels").innerHTML = `<div class="score"><span class="pts">${points}</span> points${patron ? `<span class="patron"><svg viewBox="0 0 64 28" aria-hidden="true"><path d="M4.0,25.0 L4.0,3.0 L21.9,11.5 L60.0,14.0 L21.9,16.5Z"></path></svg>Patron of the eduba</span>` : ""}</div>` + [1, 2, 3, 4].map(lv => {
+    const t = TIERS[lv], d = deckFor(lv), n = d.filter(c => learned.has(c.id)).length, open = unlocked(lv);
+    return `<button class="lvbtn${open ? "" : " locked"}" data-start="${lv}" aria-pressed="${L.lv === lv}">
+      <span class="rank cun">${t.glyph}</span>
+      <span class="lvname">${t.name} <span class="tl">${t.tl}</span></span>
+      <span class="lvcount">${open ? `${n}<span class="full"> of </span><span class="short">/</span>${d.length}<span class="full"> learned</span>` : "Locked"}</span>
+      <span class="bar"><span style="width:${d.length ? n / d.length * 100 : 0}%"></span></span>
+    </button>`;
+  }).join("");
+}
+function backHTML(c) {
+  return `<div class="back">
+    <div class="reads tl">${esc(c.show)}</div>
+    <div class="say">Say it: <b>${esc(c.speak.map(sayOf).join(" · "))}</b></div>
+    <div class="mean">${esc(c.mean)}</div>
+    ${c.note ? `<p class="snote">${esc(c.note)}</p>` : ""}
+    <div class="row">${c.speak.map(r => `<button class="listen" data-speak="${esc(r)}">${c.speak.length > 1 ? `<span class="tl">${esc(r)}</span>` : "Listen"}</button>`).join("")}</div>
+  </div>`;
+}
+function renderStage() {
+  const c = L.cur, st = $("stage"), t = TIERS[L.lv];
+  if (!c) { st.innerHTML = ""; return; }
+  if (c.kind === "locked") {
+    const prev = TIERS[L.lv - 1];
+    st.innerHTML = `<div class="card done">
+      <div class="kicker">${t.name} · <span class="cun">${t.glyph}</span> ${t.tl}</div>
+      <h3>Learn every ${prev.name.toLowerCase()} sign to unlock this rank.</h3>
+      <p class="snote">${t.blurb}.</p>
+      <div class="row"><button class="btn primary" data-start="${L.lv - 1}">Back to ${prev.name}</button>
+      <button class="btn" id="skip">Skip ahead anyway</button></div></div>`;
+    $("skip").onclick = () => { skipped.add(L.lv); saveProgress(); startLevel(L.lv); };
+    return;
+  }
+  if (c.kind === "extra") {
+    st.innerHTML = `<div class="card extra">
+      <div class="kicker">${c.t ? "From the archive" : "With thanks to"}</div>
+      ${c.t ? tabletHTML(c.t, true) : personHTML(c.p, true)}
+      <div class="row"><button class="btn primary" id="cont">Continue learning</button></div></div>`;
+    $("cont").onclick = () => next();
+    return;
+  }
+  if (c.kind === "done") {
+    const nx = L.lv < 4 ? L.lv + 1 : 0, d = deckFor(L.lv);
+    st.innerHTML = `<div class="card done">
+      <div class="kicker">${t.name} · <span class="cun">${t.glyph}</span> ${t.tl}</div>
+      <h3>${nx ? `You’ve mastered all ${d.length}. You rise to ${TIERS[nx].name}.` : `You’ve learned the names of the gods.`}</h3>
+      <p class="cun donesigns">${d.map(x => x.glyph).join(" ")}</p>
+      ${nextRefresherText() ? `<p class="snote">${nextRefresherText()} Come back then and they’ll be waiting here.</p>` : ""}
+      ${(TIP.ready || WEB_TIPS) && !patron ? `<p class="asktip">Enjoying Eduba? It’s made by one person. <a href="#support" data-support>Support the scribe</a></p>` : ""}
+      <div class="row">
+        ${nx ? `<button class="btn primary" data-start="${nx}">Begin ${TIERS[nx].name} <span class="cun">${TIERS[nx].glyph}</span></button>` : ""}
+        <button class="btn" id="reset">Practice ${t.name} again</button>
+      </div></div>`;
+    $("reset").onclick = () => { d.forEach(x => learned.delete(x.id)); saveProgress(); startLevel(L.lv); };
+    return;
+  }
+  const card = c.c, big = `<div class="bigsign cun${card.deity ? " multi" : ""}" style="--n:${[...card.glyph].length}" aria-label="Sign">${card.glyph}</div>`;
+  if (c.kind === "new") {
+    st.innerHTML = `<div class="card fc">
+      <div class="kicker">New ${card.deity ? "name" : "sign"} · ${t.name}</div>
+      ${big}${backHTML(card)}
+      <div class="row ctl"><button class="btn primary" id="go">Next</button></div></div>`;
+    $("go").onclick = () => { L.queue.push({ c: card, due: L.step + 2 }); next(); };
+    return;
+  }
+  // quiz
+  const answered = c.picked != null, right = answered && c.options[c.picked].id === card.id;
+  st.innerHTML = `<div class="card fc quiz">
+    <div class="kicker">${answered
+      ? (right ? (c.review ? `Still got it · +${REVIEW_POINTS} points` : `Correct · +${POINTS} points`) : "That’s not it")
+      : `${c.review ? "Refresher · " : ""}${card.deity ? "Which god is this?" : "What does this sign mean?"} · ${c.review ? REVIEW_POINTS : POINTS} points`}</div>
+    ${big}
+    <div class="choices">${c.options.map((o, i) => {
+      const state = !answered ? "" : o.id === card.id ? " right" : i === c.picked ? " wrong" : " dim";
+      return `<button class="choice${state}" data-pick="${i}" ${answered ? "disabled" : ""}>${esc(o.mean)}</button>`; }).join("")}</div>
+    ${answered ? backHTML(card) + `<div class="row ctl"><button class="btn primary" id="go">Next</button></div>` : ""}
+  </div>`;
+  st.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => pick(+b.dataset.pick));
+  if ($("go")) $("go").onclick = () => next();
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-start]"); if (b) startLevel(+b.dataset.start); });
+document.addEventListener("keydown", e => {
+  if ($("p-lrn").hidden || e.target.closest("input, textarea")) return;
+  if (["1", "2", "3"].includes(e.key)) { const b = document.querySelector(`[data-pick="${+e.key - 1}"]:not([disabled])`); if (b) b.click(); }
+  if (e.key === "Enter" || e.key === " ") { const b = $("go") || $("cont"); if (b && document.activeElement?.tagName !== "BUTTON") { e.preventDefault(); b.click(); } }
+});
+{ const lv = store.get("eduba-level", 1); L.lv = lv >= 1 && lv <= 4 && unlocked(lv) ? lv : 1; }
+L.fresh = deckFor(L.lv).filter(c => !learned.has(c.id)); next();
+if (!learned.size && $("howto")) $("howto").open = true;
+
+// ---------- Wiring ----------
+const tabs = [["t-lrn","p-lrn"],["t-phr","p-phr"],["t-sig","p-sig"],["t-wri","p-wri"],["t-cred","p-cred"]]
+  .filter(([t]) => t !== "t-wri" || FEATURES.write);
+if (FEATURES.write) $("t-wri").hidden = false;
+function show(tid) {
+  for (const [t, p] of tabs) { $(t).setAttribute("aria-selected", t === tid); $(p).hidden = t !== tid; }
+  try { localStorage.setItem("eduba-tab", tid); } catch {}
+}
+for (const [t] of tabs) $(t).addEventListener("click", () => show(t));
+// ---------- Tip jar ----------
+// Only in the Android app, where the Google Play billing plugin is present. On the web, see "Web support" below.
+// Product ids must match the one-time products created in Play Console.
+const TIPS = [
+  { id: "tip_2",  name: "A reed stylus" },
+  { id: "tip_5",  name: "A clay tablet" },
+  { id: "tip_10", name: "A seat in the eduba" },
+];
+// ---------- Web support ----------
+// On the web there is no Play billing, so the About tab shows plain links instead of the tip jar.
+// Leave a URL empty to hide its link; with both empty the section stays hidden.
+// Never shown inside the Android app (Google Play requires tips there to go through Play billing).
+const WEB = {
+  supportUrl: "",   // a tip page: Ko-fi, Buy Me a Coffee, GitHub Sponsors…
+  playUrl: "",      // the Google Play listing, once Eduba is live
+};
+const IN_APP = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+const WEB_TIPS = !IN_APP && !!WEB.supportUrl;
+function initWebSupport() {
+  if (IN_APP || !(WEB.supportUrl || WEB.playUrl)) return;
+  const links = [];
+  if (WEB.supportUrl) links.push(`<a class="btn primary" href="${esc(WEB.supportUrl)}" target="_blank" rel="noopener">Leave a tip</a>`);
+  if (WEB.playUrl) links.push(`<a class="btn" href="${esc(WEB.playUrl)}" target="_blank" rel="noopener">Get Eduba for Android</a>`);
+  $("webtext").textContent = WEB.supportUrl
+    ? "Eduba is free, with no ads, and is made by one person. Tips help cover the voice recordings and the tools behind the app. They don’t unlock anything; everything in Eduba is already yours."
+    : "Eduba is free, with no ads. It is also available as an Android app, which works offline.";
+  if (!WEB.supportUrl) $("supporthead").textContent = "Eduba on your phone";
+  $("weblinks").innerHTML = links.join("");
+  $("appsupport").hidden = true; $("websupport").hidden = false; $("support").hidden = false;
+}
+function tipMsg(m) { $("tipmsg").textContent = m; }
+function renderTips() {
+  const CP = window.CdvPurchase; if (!CP || !TIP.ready) return;
+  $("support").hidden = false;
+  $("tipbtns").innerHTML = TIPS.map(t => {
+    const pr = CP.store.get(t.id), price = pr && pr.pricing ? pr.pricing.price : "";
+    return `<button class="tipbtn" data-tip="${t.id}" ${pr && !TIP.busy ? "" : "disabled"}><b>${esc(price || "…")}</b><span>${esc(t.name)}</span></button>`;
+  }).join("");
+}
+function initTips() {
+  const CP = window.CdvPurchase; if (!CP) return;
+  const iap = CP.store;
+  iap.register(TIPS.map(t => ({ id: t.id, type: CP.ProductType.CONSUMABLE, platform: CP.Platform.GOOGLE_PLAY })));
+  iap.when()
+    .approved(tx => tx.finish())
+    .finished(() => {
+      TIP.busy = false; patron = true; store.set("eduba-patron", true);
+      renderLevels(); renderTips(); tipMsg("Thank you! Your gift keeps the eduba open.");
+    })
+    .productUpdated(() => renderTips());
+  iap.initialize([CP.Platform.GOOGLE_PLAY]).then(() => { TIP.ready = true; renderTips(); });
+}
+document.addEventListener("deviceready", initTips, false);
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-tip]");
+  if (b) {
+    const CP = window.CdvPurchase, offer = CP.store.get(b.dataset.tip)?.getOffer();
+    if (!offer) return;
+    TIP.busy = true; renderTips(); tipMsg("");
+    offer.order().then(err => {
+      if (err) { TIP.busy = false; renderTips();
+        if (err.code !== CP.ErrorCode.PAYMENT_CANCELLED) tipMsg("The tip didn’t go through. Please try again later."); }
+    });
+  }
+  const s = e.target.closest("[data-support]");
+  if (s) { e.preventDefault(); show("t-cred"); $("support").scrollIntoView({ block: "start" }); }
+});
+// Period labels on archive cards open the history timeline.
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-history]"); if (!a) return;
+  e.preventDefault(); show("t-cred"); $("history").scrollIntoView({ block: "start" });
+});
+$("phrases").addEventListener("click", e => {
+  const w = e.target.closest("[data-write]"), c = e.target.closest("[data-copy]");
+  if (w) { const p = PHRASES[+w.dataset.write]; $("tin").value = p.tl; $("ein").value = p.en; $("shot").hidden = true; renderWriter(); show("t-wri"); window.scrollTo(0, 0); }
+  if (c) copyText(toCun(PHRASES[+c.dataset.copy].tl), "Cuneiform copied.");
+});
+$("q").addEventListener("input", e => renderSigns(e.target.value));
+document.querySelectorAll("[data-lv]").forEach(b => b.addEventListener("click", () => {
+  level = +b.dataset.lv;
+  document.querySelectorAll("[data-lv]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderSigns($("q").value);
+}));
+$("tin").addEventListener("input", () => { $("shot").hidden = true; renderWriter(); });
+$("pickers").addEventListener("click", e => { const b = e.target.closest(".opt"); if (b) choose(+b.dataset.pos, b.dataset.r); });
+$("copy").addEventListener("click", () => current.cun ? copyText(current.cun, "Cuneiform copied.") : flash("Type something first."));
+$("copyall").addEventListener("click", () => { if (!current.cun) return flash("Type something first.");
+  const en = $("ein").value.trim(); copyText([current.cun, current.tl, en].filter(Boolean).join("\n"), "Copied with transliteration."); });
+$("img").addEventListener("click", makeImage);
+document.addEventListener("click", e => { const b = e.target.closest("[data-speak]"); if (b) speak(b.dataset.speak); });
+$("listen").addEventListener("click", () => speak($("tin").value));
+function setRate(r) { rate = r; playing.forEach(a => a.playbackRate = r);
+  document.querySelectorAll("[data-rate]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.rate === r));
+  try { localStorage.setItem("eduba-rate", r); } catch {} }
+document.querySelectorAll("[data-rate]").forEach(b => b.addEventListener("click", () => setRate(+b.dataset.rate)));
+setRate(rate);
+document.addEventListener("click", e => {
+  const t = e.target.closest(".tok"); if (!t) return;
+  const host = t.closest("[data-ex-host]"), box = host.querySelector(".explain");
+  const was = t.classList.contains("on");
+  host.querySelectorAll(".tok.on").forEach(x => x.classList.remove("on"));
+  if (was) { box.hidden = true; return; }
+  t.classList.add("on"); box.innerHTML = explainHTML(t.dataset.raw, !!t.dataset.det); box.hidden = false;
+});
+
+renderPhrases(); renderSigns(); renderWriter();
+renderLevels(); renderCredits(); initWebSupport();
+try { const t = localStorage.getItem("eduba-tab"); if (t && tabs.some(([x]) => x === t)) show(t); } catch {}
+</script>
+
+</body></html>
